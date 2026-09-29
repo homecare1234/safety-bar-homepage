@@ -1,0 +1,27 @@
+{
+  "autoUploadSessions": false,
+  "disableRemoteControl": true,
+  "remoteControlAtStartup": false,
+  "disableArtifact": true,
+  "disableClaudeAiConnectors": true,
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_BUG_COMMAND": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "deny": [
+      "Artifact",
+      "ArtifactComments",
+      "ArtifactData",
+      "ArtifactCheck",
+      "mcp__notion",
+      "mcp__claude_ai_Gmail",
+      "mcp__claude_ai_Google_Calendar",
+      "mcp__claude_ai_Google_Drive",
+      "mcp__claude_ai_higgsfield"
+    ]
+  }
+}
