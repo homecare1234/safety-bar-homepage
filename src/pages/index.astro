@@ -61,7 +61,6 @@ const jsonLd = [
     title={site.title}
     description={site.description}
     path="/"
-    image={full(heroImg)}
     jsonLd={jsonLd}
     preload={full(heroImg)}
 >
@@ -302,6 +301,12 @@ const jsonLd = [
                         <th>상호</th>
                         <td>{site.business.legalName}</td>
                     </tr>
+                    {filled(site.business.specialty) && (
+                        <tr>
+                            <th>전문 분야</th>
+                            <td>{site.business.specialty}</td>
+                        </tr>
+                    )}
                     {filled(site.business.owner) && (
                         <tr>
                             <th>대표</th>
@@ -318,6 +323,12 @@ const jsonLd = [
                         <th>시공 지역</th>
                         <td>{site.business.areaServedLabel}</td>
                     </tr>
+                    {filled(site.business.mainWork) && (
+                        <tr>
+                            <th>주요 시공</th>
+                            <td>{site.business.mainWork}</td>
+                        </tr>
+                    )}
                     {filled(site.contact.hours) && (
                         <tr>
                             <th>상담</th>

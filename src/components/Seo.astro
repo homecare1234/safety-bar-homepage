@@ -7,7 +7,8 @@ interface Props {
 }
 const { title, description, keywords = site.keywords, path, image, type = 'website', jsonLd = [] } = Astro.props;
 const canonical = new URL(path, site.url).href;
-const ogImage = new URL(image ?? '/og.png', site.url).href;
+// 기본 공유 이미지: 시공 사진(bathroom-safety-bar-09)을 1200×630으로 자른 것. 세부 페이지는 자기 대표 사진을 쓴다
+const ogImage = new URL(image ?? '/og.jpg', site.url).href;
 const { business, contact, brand } = site;
 
 const localBusiness = {
@@ -20,14 +21,15 @@ const localBusiness = {
   url: site.url,
   telephone: `+82-${contact.phoneDigits.replace(/^0/, '').replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3')}`,
   image: ogImage,
-  address: {
+  // 주소를 넣지 않는 업체는 시·도만 적힌 주소도 내보내지 않는다 (확인되지 않은 소재지를 알리지 않도록)
+  ...(business.address.street ? { address: {
     '@type': 'PostalAddress',
-    streetAddress: business.address.street || undefined,
+    streetAddress: business.address.street,
     addressLocality: business.address.city,
     addressRegion: business.address.region,
     postalCode: business.address.postalCode || undefined,
     addressCountry: business.address.country,
-  },
+  } } : {}),
   areaServed: business.areaServed.map((name) => ({ '@type': 'AdministrativeArea', name })),
   founder: business.owner || undefined,
   contactPoint: [{ '@type': 'ContactPoint', telephone: contact.phoneDisplay, contactType: 'customer service', availableLanguage: 'Korean' }],
@@ -51,6 +53,7 @@ const all = [localBusiness, website, ...jsonLd];
 <meta name="author" content={brand.name} />
 {site.verification.naver && <meta name="naver-site-verification" content={site.verification.naver} />}
 {site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+{site.verification.bing && <meta name="msvalidate.01" content={site.verification.bing} />}
 
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={brand.name} />
@@ -59,14 +62,23 @@ const all = [localBusiness, website, ...jsonLd];
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImage} />
-{image ? <><meta property="og:image:width" content="1600" /><meta property="og:image:height" content="1200" /></> : <><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></>}
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<!-- 아이콘: public/favicon/ (파비콘 생성기 결과물). 루트의 favicon.ico·apple-touch-icon.png는 기본 경로로 찾는 봇·기기용 사본 -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/favicon/manifest.json" />
+<meta name="msapplication-TileColor" content="#2c94fa" />
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png" />
+<meta name="msapplication-config" content="/favicon/browserconfig.xml" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
 <meta name="theme-color" content="#42a1f5" />

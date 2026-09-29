@@ -7,7 +7,7 @@ import Faq from '../components/Faq.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Icon from '../components/Icon.astro';
 import site from '@site/site';
-import { full } from '../lib/img';
+import { full, og } from '../lib/img';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -36,7 +36,7 @@ const jsonLd = [
   ...(answered.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: answered.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : []),
 ];
 ---
-<Base title={d.title} description={d.description} keywords={d.keywords} path={`/${page.id}`} image={full(hero)} type="article" jsonLd={jsonLd} preload={full(hero)}>
+<Base title={d.title} description={d.description} keywords={d.keywords} path={`/${page.id}`} image={og(hero)} type="article" jsonLd={jsonLd} preload={full(hero)}>
   <section class="dh">
     <img class="dh__bg" src={full(hero)} alt={d.imageAlt ?? `${heading} 시공 사진`} width="1600" height="1200" fetchpriority="high" />
     <div class="dh__shade" aria-hidden="true"></div>

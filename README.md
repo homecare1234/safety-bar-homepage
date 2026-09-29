@@ -35,7 +35,7 @@ npm run build        # dist/ 생성
 - Framework Preset: **Astro** (자동 감지)
 - Build Command: `npm run build` / Output: `dist`
 - Environment Variables: `SITE=safetybar`
-- Domains: `safetybar.현명한홈케어.com` (DNS에 CNAME → `cname.vercel-dns.com`)
+- Domains: `safety.현명한홈케어.com` (실제 배포는 Cloudflare Worker. 도메인 DNS는 Cloudflare, Worker → Add Domain으로 연결)
 - 프로젝트 하나 = 키워드 사이트 하나. 같은 저장소를 여러 프로젝트에 연결해도 됩니다.
 
 주의: Vercel Hobby(무료) 약관은 비상업적 용도입니다. 업체 사이트를 무료로 두려면 Cloudflare Pages가 상업 사용을 허용합니다(설정은 동일: build `npm run build`, output `dist`, 환경변수 `SITE`).
@@ -55,6 +55,7 @@ npm run build        # dist/ 생성
 2. 폴더 이름 → 파일 이름 대응은 `scripts/images.mjs`의 `folderSlug`에 있음
 3. 메인에 쓰는 사진은 `site.ts`의 `hero.image`, `cases`, `gallery`, `workPhotos`, `about`에서 이름(확장자 없이)으로 지정
 4. 각 페이지 사진은 `content/*.md` 머리말의 `image`, `imageAlt`, `gallery`
+5. 페이지 대표 사진(`image`)을 바꿨으면 `node scripts/og.mjs` 실행 → 카톡 공유용 1200×630 JPG(`public/images/<사이트>/og/`) 다시 생성. 메인 공유 이미지는 `public/og.jpg`
 
 ⚠ 원본 폴더를 추가하면 번호가 밀려 파일 이름이 바뀔 수 있습니다. 변환 후 `site.ts`와 `content/*.md`의 이름을 다시 확인하세요.
 
@@ -69,8 +70,8 @@ npx wrangler pages deploy dist --project-name <프로젝트이름>
 
 ## 배포 전 채워야 할 것 (`sites/safetybar/site.ts`)
 
-`launched: true`로 바꾸면 noindex가 풀립니다. 아래 항목이 비어 있으면 빌드가 멈춥니다.
+`launched: true`로 바꾸면 noindex와 시안 안내 줄이 사라집니다. 전화번호가 자리표시자면 빌드가 멈춥니다.
+대표자명·사업자등록번호·주소는 넣지 않기로 했습니다 (비어 있으면 화면과 구조화 데이터에서 빠짐).
 
-- [ ] `phoneDigits`, `phoneDisplay` 실제 번호
-- [ ] `business.owner`, `business.registrationNo`, `business.address.street`
+- [x] `phoneDigits`, `phoneDisplay` 실제 번호
 - [ ] `verification.naver`, `verification.google`
