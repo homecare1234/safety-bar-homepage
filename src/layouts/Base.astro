@@ -1,0 +1,24 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import SmsScript from '../components/SmsScript.astro';
+import site from '@site/site';
+interface Props { title: string; description: string; keywords?: string[]; path: string; image?: string | null; type?: 'website' | 'article'; jsonLd?: object[]; preload?: string }
+const { preload, ...props } = Astro.props;
+---
+<!doctype html>
+<html lang={site.lang}>
+  <head><Seo {...props} />{preload && <link rel="preload" as="image" href={preload} fetchpriority="high" />}</head>
+  <body>
+    <a class="sr-only" href="#main">본문 바로가기</a>
+    {!site.launched && <p class="draft">시안입니다 · 전화번호와 사업자 정보는 확정 후 반영됩니다</p>}
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <MobileBar />
+    <SmsScript />
+  </body>
+</html>

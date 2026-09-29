@@ -1,0 +1,150 @@
+---
+import { nl, filled } from '../lib/text';
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Faq from '../components/Faq.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Icon from '../components/Icon.astro';
+import site from '@site/site';
+import { full } from '../lib/img';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((p) => ({ params: { slug: p.id }, props: { page: p } }));
+}
+const { page } = Astro.props;
+const { Content, headings } = await render(page);
+const d = page.data;
+const heading = d.heading ?? d.title;
+const all = (await getCollection('pages')).sort((a, b) => a.data.order - b.data.order);
+const others = all.filter((p) => p.id !== page.id);
+const related = others.filter((p) => p.data.group === d.group).slice(0, 5);
+const groupLabel: Record<string, string> = { service: '서비스 안내', space: '설치 장소별', target: '이용 대상별', info: '알아두면 좋은 정보' };
+const toc = headings.filter((h) => h.depth === 2);
+const answered = d.faq.filter((f) => filled(f.a)); // 답을 비워 둔 질문은 숨긴다
+const hero = d.image ?? site.hero.image!;
+
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: site.shortTitle, item: site.url },
+    { '@type': 'ListItem', position: 2, name: heading, item: new URL(`/${page.id}`, site.url).href },
+  ] },
+  { '@context': 'https://schema.org', '@type': 'Service', name: heading, description: d.description, serviceType: heading,
+    image: [hero, ...d.gallery].map((n) => new URL(full(n), site.url).href),
+    provider: { '@id': new URL('/#business', site.url).href }, areaServed: site.business.areaServed.map((n) => ({ '@type': 'AdministrativeArea', name: n })) },
+  ...(answered.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: answered.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : []),
+];
+---
+<Base title={d.title} description={d.description} keywords={d.keywords} path={`/${page.id}`} image={full(hero)} type="article" jsonLd={jsonLd} preload={full(hero)}>
+  <section class="dh">
+    <img class="dh__bg" src={full(hero)} alt={d.imageAlt ?? `${heading} 시공 사진`} width="1600" height="1200" fetchpriority="high" />
+    <div class="dh__shade" aria-hidden="true"></div>
+    <div class="wrap dh__in">
+      <nav class="crumb" aria-label="현재 위치"><a href="/">{site.shortTitle}</a><span>/</span><span>{groupLabel[d.group]}</span></nav>
+      <h1><Fragment set:html={nl(heading)} /></h1>
+      <p class="dh__lead"><Fragment set:html={nl(d.summary)} /></p>
+    </div>
+  </section>
+  <div class="wrap">
+    <dl class="sum">
+      <div><dt>시공 지역</dt><dd>{site.business.areaServedLabel}</dd></div>
+      <div><dt>상담</dt><dd>전화 · 문자 사진 상담</dd></div>
+      <div><dt>비용</dt><dd>사진 확인 후 안내</dd></div>
+    </dl>
+  </div>
+
+  {d.gallery.length > 0 && (
+    <section class="shots" id="photos" aria-label={`${heading} 시공 사진`}>
+      <div class="wrap">
+        <h2 class="shots__h">{d.group === 'space' || d.group === 'target' ? `${heading} 시공 사진` : '현장 시공 사진'}</h2>
+        <ul class="shots__grid">{d.gallery.map((g, i) => <li><Photo name={g} alt={`${heading} 시공 사진 ${i + 1}`} sizes="(max-width: 720px) 50vw, 380px" eager={i < 3} /></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  <section class="sec">
+    <div class="wrap body">
+      <article class="prose">
+        {toc.length > 3 && (
+          <nav class="toc" aria-label="목차"><p>이 페이지 내용</p><ol>{toc.map((h, i) => <li><a href={`#${h.slug}`}><b>{String(i + 1).padStart(2, '0')}</b>{h.text}</a></li>)}</ol></nav>
+        )}
+        <Content />
+        {answered.length > 0 && (<>
+          <h2 id="faq">{heading} 자주 묻는 질문</h2>
+          <Faq items={answered} />
+        </>)}
+      </article>
+      <aside class="side">
+        <div class="side__box">
+          <p class="side__h">사진 한 장으로 견적</p>
+          <p class="side__p">설치할 곳 사진을 문자로 보내주시면 비용과 날짜를 답장드립니다.</p>
+          <a class="btn btn--blue" href={site.contact.telHref}><Icon name="phone" />{site.contact.phoneDisplay}</a>
+          <a class="btn btn--line" href={`sms:${site.contact.phoneDigits}`} data-sms><Icon name="sms" />문자로 사진 보내기</a>
+          {filled(site.contact.hours) && <p class="side__hours">{site.contact.hours}</p>}
+        </div>
+        <nav class="side__nav" aria-label={groupLabel[d.group]}>
+          <p>{groupLabel[d.group]}</p>
+          <ul>{related.map((p) => <li><a href={`/${p.id}`}>{p.data.heading ?? p.data.title}<Icon name="arrow" /></a></li>)}</ul>
+        </nav>
+      </aside>
+    </div>
+  </section>
+
+  <section class="sec sec--soft sec--tight">
+    <div class="wrap">
+      <p class="more-h">다른 안내도 함께 보세요</p>
+      <ul class="links">{others.map((p) => <li><a href={`/${p.id}`}>{p.data.heading ?? p.data.title}</a></li>)}</ul>
+    </div>
+  </section>
+
+  <CtaSection />
+</Base>
+
+<style>
+  .dh { position: relative; min-height: 440px; display: flex; align-items: flex-end; overflow: hidden; background: var(--dark); color: #fff; }
+  .dh__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .dh__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,24,38,.35) 0%, rgba(14,24,38,.9) 100%); }
+  .dh__in { position: relative; padding: 72px 0 96px; }
+  .crumb { display: flex; gap: 8px; font-size: 14px; color: rgba(255,255,255,.7); margin-bottom: 18px; }
+  .crumb a:hover { color: #fff; }
+  .dh h1 { font-size: clamp(32px, 4.6vw, 52px); letter-spacing: -0.035em; }
+  .dh__lead { margin-top: 14px; max-width: 620px; color: rgba(255,255,255,.8); font-size: 17px; }
+  .sum { position: relative; z-index: 2; margin: -44px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); background: #fff; border-radius: var(--r); box-shadow: 0 18px 44px rgba(14,24,38,.12); }
+  .sum div { padding: 22px 26px; border-left: 1px solid var(--line); }
+  .sum div:first-child { border-left: 0; }
+  .sum dt { font-size: 13px; color: var(--ink-3); }
+  .sum dd { margin: 4px 0 0; font-weight: 700; }
+  @media (max-width: 720px) { .dh { min-height: 320px; } .dh__in { padding: 48px 0 72px; } .sum { margin-top: -36px; } .sum div { padding: 12px 12px; } .sum dt { font-size: 12px; } .sum dd { font-size: 13px; line-height: 1.4; } }
+
+  .body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: start; }
+  .toc { border-top: 1.5px solid var(--ink); border-bottom: 1px solid var(--line); padding: 18px 0; margin-bottom: 36px; }
+  .toc p { font-weight: 700; margin: 0 0 8px; font-size: 15px; }
+  .toc ol { list-style: none; margin: 0; }
+  .toc li { margin: 0; }
+  .toc a { display: flex; gap: 12px; padding: 4px 0; color: var(--ink-2); text-decoration: none; font-size: 15px; }
+  .toc a:hover { color: var(--ink); }
+  .toc b { color: var(--blue-ink); font-weight: 700; }
+  .shots { padding-top: 48px; }
+  .shots__h { font-size: 22px; margin-bottom: 18px; }
+  .shots__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 720px) { .shots { padding-top: 36px; } .shots__grid { grid-template-columns: 1fr 1fr; gap: 8px; } }
+
+  .side { position: sticky; top: 92px; display: grid; gap: 32px; }
+  .side__box { border: 1px solid var(--line); border-radius: var(--r); padding: 24px; display: grid; gap: 10px; }
+  .side__h { font-weight: 700; font-size: 17px; }
+  .side__p { font-size: 14px; color: var(--ink-2); margin-bottom: 6px; }
+  .side__hours { font-size: 13px; color: var(--ink-3); }
+  .side__nav p { font-size: 13px; color: var(--ink-3); margin-bottom: 8px; }
+  .side__nav ul { border-top: 1.5px solid var(--ink); }
+  .side__nav a { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 500; }
+  .side__nav a:hover { color: var(--blue-ink); }
+  .side__nav :global(svg) { color: var(--ink-3); width: 15px; height: 15px; }
+
+  .more-h { font-weight: 700; margin-bottom: 16px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .links a { display: inline-block; padding: 9px 14px; border: 1px solid var(--line); background: #fff; border-radius: var(--r-sm); font-size: 14px; }
+  .links a:hover { border-color: var(--ink); }
+
+  @media (max-width: 960px) { .body { grid-template-columns: 1fr; } .side { position: static; } .side__box { display: none; } }
+</style>

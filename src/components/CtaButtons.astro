@@ -1,0 +1,20 @@
+---
+import site from '@site/site';
+import Icon from './Icon.astro';
+interface Props { dark?: boolean; lg?: boolean; class?: string }
+const { dark = false, lg = false, class: cls = '' } = Astro.props;
+const { contact } = site;
+---
+<div class:list={['cta', cls]}>
+  <a class:list={['btn', 'btn--blue', lg && 'btn--lg']} href={contact.telHref} data-cta="tel">
+    <Icon name="phone" />전화 상담 <span class="cta__num">{contact.phoneDisplay}</span>
+  </a>
+  <a class:list={['btn', dark ? 'btn--line-w' : 'btn--line', lg && 'btn--lg']} href={`sms:${contact.phoneDigits}`} data-sms data-cta="sms">
+    <Icon name="sms" />문자로 사진 보내기
+  </a>
+</div>
+<style>
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cta__num { font-weight: 600; }
+  @media (max-width: 480px) { .cta { flex-direction: column; } .cta .btn { width: 100%; } }
+</style>

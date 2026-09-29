@@ -1,0 +1,78 @@
+---
+// 모든 페이지 <head>. 네이버·구글이 읽는 것은 전부 여기서 나간다.
+import site from '@site/site';
+interface Props {
+  title: string; description: string; keywords?: string[]; path: string;
+  image?: string | null; type?: 'website' | 'article'; jsonLd?: object[];
+}
+const { title, description, keywords = site.keywords, path, image, type = 'website', jsonLd = [] } = Astro.props;
+const canonical = new URL(path, site.url).href;
+const ogImage = new URL(image ?? '/og.png', site.url).href;
+const { business, contact, brand } = site;
+
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': new URL('/#business', site.url).href,
+  name: brand.name,
+  legalName: business.legalName,
+  description: site.description,
+  url: site.url,
+  telephone: `+82-${contact.phoneDigits.replace(/^0/, '').replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3')}`,
+  image: ogImage,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street || undefined,
+    addressLocality: business.address.city,
+    addressRegion: business.address.region,
+    postalCode: business.address.postalCode || undefined,
+    addressCountry: business.address.country,
+  },
+  areaServed: business.areaServed.map((name) => ({ '@type': 'AdministrativeArea', name })),
+  founder: business.owner || undefined,
+  contactPoint: [{ '@type': 'ContactPoint', telephone: contact.phoneDisplay, contactType: 'customer service', availableLanguage: 'Korean' }],
+  ...(business.geo ? { geo: { '@type': 'GeoCoordinates', latitude: business.geo.lat, longitude: business.geo.lng } } : {}),
+};
+const website = {
+  '@context': 'https://schema.org', '@type': 'WebSite', name: site.title, url: site.url, inLanguage: 'ko',
+  publisher: { '@id': localBusiness['@id'] },
+};
+const all = [localBusiness, website, ...jsonLd];
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords.join(', ')} />
+{site.launched
+  ? <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  : <meta name="robots" content="noindex, nofollow" />}
+<link rel="canonical" href={canonical} />
+<meta name="author" content={brand.name} />
+{site.verification.naver && <meta name="naver-site-verification" content={site.verification.naver} />}
+{site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={brand.name} />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+{image ? <><meta property="og:image:width" content="1600" /><meta property="og:image:height" content="1200" /></> : <><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></>}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
+<meta name="theme-color" content="#42a1f5" />
+<meta name="format-detection" content="telephone=yes" />
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+{all.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}

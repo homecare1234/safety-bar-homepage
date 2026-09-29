@@ -1,0 +1,5 @@
+---
+interface Props { no: string; label: string; light?: boolean }
+const { no, label, light } = Astro.props;
+---
+<p class="kicker" style={light ? 'color:rgba(255,255,255,.8)' : undefined}><b style={light ? 'color:var(--blue)' : undefined}>{no}</b><i></i>{label}</p>

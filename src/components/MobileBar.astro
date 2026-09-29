@@ -1,0 +1,24 @@
+---
+// 화면 하단 가운데 고정: 흰 바탕 상자 안에 왼쪽 전화 상담, 오른쪽 문자 상담. 스크롤해도 항상 따라온다.
+import site from '@site/site';
+import Icon from './Icon.astro';
+const { contact } = site;
+---
+<div class="dock" role="region" aria-label="빠른 상담">
+  <a href={contact.telHref} class="dock__btn dock__btn--tel" data-cta="tel"><Icon name="phone" /><span>전화 상담</span></a>
+  <a href={`sms:${contact.phoneDigits}`} data-sms class="dock__btn dock__btn--sms" data-cta="sms"><Icon name="sms" /><span>문자 상담</span></a>
+</div>
+<style>
+  .dock {
+    position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60;
+    width: min(600px, 100% - 24px); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 36px rgba(14,24,38,.18);
+  }
+  .dock__btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 62px; border-radius: 9px; font-weight: 700; font-size: 19px; }
+  .dock__btn svg { width: 22px; height: 22px; }
+  .dock__btn--tel { background: var(--blue); color: var(--dark); }
+  .dock__btn--tel:hover { background: var(--blue-hover); }
+  .dock__btn--sms { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
+  .dock__btn--sms:hover { background: var(--ink); color: #fff; }
+  @media (max-width: 720px) { .dock { bottom: calc(10px + env(safe-area-inset-bottom)); } .dock__btn { min-height: 58px; font-size: 17px; } }
+</style>

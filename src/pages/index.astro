@@ -1,0 +1,845 @@
+---
+import { nl, filled } from '../lib/text';
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Photo from "../components/Photo.astro";
+import Faq from "../components/Faq.astro";
+import Icon from "../components/Icon.astro";
+import Kicker from "../components/Kicker.astro";
+import CtaSection from "../components/CtaSection.astro";
+import site from "@site/site";
+import { full, thumb } from "../lib/img";
+
+const all = (await getCollection("pages")).sort(
+    (a, b) => a.data.order - b.data.order,
+);
+const spaces = all.filter((p) => p.data.group === "space");
+const rows = spaces.filter((p) => p.data.image).slice(0, 4);
+const restSpaces = spaces.filter((p) => !rows.includes(p));
+const guides = all.filter((p) => p.data.group !== "space");
+const heroImg = site.hero.image!;
+
+const jsonLd = [
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: site.faq.filter((f) => filled(f.a)).map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: site.shortTitle,
+        serviceType: "안전바 설치",
+        description: site.description,
+        provider: { "@id": new URL("/#business", site.url).href },
+        areaServed: site.business.areaServed.map((n) => ({
+            "@type": "AdministrativeArea",
+            name: n,
+        })),
+        image: site.cases.map((c) => new URL(full(c.image), site.url).href),
+        hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "안전바 설치 서비스",
+            itemListElement: spaces.map((p) => ({
+                "@type": "Offer",
+                itemOffered: {
+                    "@type": "Service",
+                    name: p.data.heading ?? p.data.title,
+                    url: new URL(`/${p.id}`, site.url).href,
+                },
+            })),
+        },
+    },
+];
+---
+
+<Base
+    title={site.title}
+    description={site.description}
+    path="/"
+    image={full(heroImg)}
+    jsonLd={jsonLd}
+    preload={full(heroImg)}
+>
+    <!-- 히어로: 시공 사진 위에 글 -->
+    <section class="hero">
+        <div class="hero__slides" data-slides>
+            {site.hero.slides.map((sl, i) => (
+                <img
+                    class:list={["hero__bg", i === 0 && "is-on"]}
+                    src={full(sl.image)}
+                    style={`object-position:${sl.position}`}
+                    alt={i === 0 ? site.hero.imageAlt : ""}
+                    aria-hidden={i === 0 ? undefined : "true"}
+                    width="1600"
+                    height="1200"
+                    decoding="async"
+                    fetchpriority={i === 0 ? "high" : "low"}
+                />
+            ))}
+        </div>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <div class="wrap hero__in">
+            <p class="hero__eyebrow"><Fragment set:html={nl(site.hero.eyebrow)} /></p>
+            <h1 class="hero__h1"><Fragment set:html={nl(site.hero.heading)} /></h1>
+            <p class="hero__sub"><Fragment set:html={nl(site.hero.subheading)} /></p>
+            {filled(site.hero.lead) && <p class="hero__lead"><Fragment set:html={nl(site.hero.lead)} /></p>}
+        </div>
+    </section>
+    <div class="wrap">
+        <dl class="strip" style={`--n:${site.features.filter((f) => filled(f.value)).length}`}>
+            {site.features.filter((f) => filled(f.value)).map((f) => (
+                <div>
+                    <dt>{f.label}</dt>
+                    <dd><Fragment set:html={nl(f.value)} /></dd>
+                </div>
+            ))}
+        </dl>
+    </div>
+
+    <!-- 01 시공 사례 -->
+    <section class="sec" id="cases">
+        <div class="wrap">
+            <div class="head head--row">
+                <div>
+                    <Kicker no="01" label="시공 사례" />
+                    <h2>설치한 현장을 그대로 보여드립니다</h2>
+                </div>
+                <a class="more" href="#gallery">
+                    사진 더 보기 <Icon name="arrow" />
+                </a>
+            </div>
+            <ul class="cases">
+                {site.cases.map((c) => (
+                    <li>
+                        <a href={c.href} class="case">
+                            <Photo
+                                name={c.image}
+                                alt={`${c.title} 시공 사진`}
+                            />
+                            <h3><Fragment set:html={nl(c.title)} /></h3>
+                            {filled(c.desc) && <p><Fragment set:html={nl(c.desc)} /></p>}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- 사진 상담 띠 -->
+    <section class="band">
+        <div class="wrap band__in">
+            <p class="band__t">
+                <strong>사진 한 장</strong>이면 비용과 날짜를 답장드립니다.
+            </p>
+            <a
+                class="btn btn--blue"
+                href={`sms:${site.contact.phoneDigits}`}
+                data-sms
+            >
+                <Icon name="sms" />
+                문자로 사진 보내기
+            </a>
+        </div>
+    </section>
+
+    <!-- 02 설치 장소별 -->
+    <section class="sec" id="services">
+        <div class="wrap">
+            <div class="head">
+                <Kicker no="02" label="설치 장소별 안내" />
+                <h2>어디에 어떤 안전바가 필요할까요?</h2>
+            </div>
+            <div class="rows">
+                {rows.map((p, i) => (
+                    <a class="row" href={`/${p.id}`}>
+                        <Photo
+                            name={p.data.image!}
+                            alt={
+                                p.data.imageAlt ??
+                                `${p.data.heading ?? p.data.title} 사진`
+                            }
+                            sizes="(max-width: 720px) 100vw, 560px"
+                            ratio="16 / 10"
+                        />
+                        <div class="row__body">
+                            <span class="row__no">
+                                {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <h3>{p.data.heading ?? p.data.title}</h3>
+                            <p><Fragment set:html={nl(p.data.summary)} /></p>
+                            <span class="more">
+                                자세히 보기 <Icon name="arrow" />
+                            </span>
+                        </div>
+                    </a>
+                ))}
+            </div>
+            <ul class="chips">
+                {restSpaces.map((p) => (
+                    <li>
+                        <a href={`/${p.id}`}>
+                            {p.data.heading ?? p.data.title}
+                            <Icon name="arrow" />
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- 03 유형별 사진 -->
+    <section class="sec sec--soft" id="gallery">
+        <div class="wrap">
+            <div class="head">
+                <Kicker no="03" label="유형별 시공 사진" />
+                <h2>같은 안전바도 집마다 자리가 다릅니다</h2>
+            </div>
+            <ul class="gal">
+                {site.gallery.map((g, i) => (
+                    <li>
+                        <Photo
+                            name={g.image}
+                            alt={`${g.caption} 안전바 설치`}
+                            caption={g.caption}
+                            ratio={
+                                i % 3 === 0
+                                    ? "1 / 1"
+                                    : i % 3 === 1
+                                      ? "4 / 5"
+                                      : "3 / 4"
+                            }
+                            sizes="(max-width: 720px) 50vw, 280px"
+                        />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- 04 시공 순서 -->
+    <section class="sec" id="process">
+        <div class="wrap">
+            <div class="head head--row">
+                <div>
+                    <Kicker no="04" label="시공 순서" />
+                    <h2>문자 한 통에서 시공 완료까지</h2>
+                </div>
+                <a class="more" href="/process">
+                    시공 과정 자세히 <Icon name="arrow" />
+                </a>
+            </div>
+            <ol class="steps" style={`--n:${site.process.length}`}>
+                {site.process.map((s) => (
+                    <li>
+                        <span>{s.step}</span>
+                        <h3><Fragment set:html={nl(s.title)} /></h3>
+                        {filled(s.body) && <p><Fragment set:html={nl(s.body)} /></p>}
+                    </li>
+                ))}
+            </ol>
+            <ul class="work">
+                {site.workPhotos.map((w) => (
+                    <li>
+                        <Photo
+                            name={w.image}
+                            alt={w.caption}
+                            caption={w.caption}
+                        />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- 05 비용 -->
+    <section class="sec sec--soft" id="cost">
+        <div class="wrap split">
+            <div>
+                <Kicker no="05" label="비용 안내" />
+                <h2 class="split__h"><Fragment set:html={nl(site.pricing.heading)} /></h2>
+                {filled(site.pricing.lead) && <p class="split__p"><Fragment set:html={nl(site.pricing.lead)} /></p>}
+                {filled(site.pricing.note) && <p class="split__note"><Fragment set:html={nl(site.pricing.note)} /></p>}
+                <a class="more" href="/cost">
+                    비용 기준 자세히 <Icon name="arrow" />
+                </a>
+            </div>
+            {site.pricing.factors.some((f) => filled(f.body)) && (
+            <ol class="factors">
+                {site.pricing.factors.filter((f) => filled(f.body)).map((f, i) => (
+                    <li>
+                        <span>{String(i + 1).padStart(2, "0")}</span>
+                        <div>
+                            <h3><Fragment set:html={nl(f.title)} /></h3>
+                            <p><Fragment set:html={nl(f.body)} /></p>
+                        </div>
+                    </li>
+                ))}
+            </ol>
+            )}
+        </div>
+    </section>
+
+    <!-- 06 업체 소개 -->
+    <section class="sec" id="about">
+        <div class="wrap split split--photo">
+            <Photo
+                name={site.about.image}
+                alt={site.about.imageAlt}
+                ratio="4 / 5"
+                sizes="(max-width: 860px) 100vw, 520px"
+            />
+            <div>
+                <Kicker no="06" label="업체 소개" />
+                <h2 class="split__h">{site.brand.name}</h2>
+                {filled(site.about.body) && <p class="split__p"><Fragment set:html={nl(site.about.body)} /></p>}
+                <table class="biz">
+                    <tr>
+                        <th>상호</th>
+                        <td>{site.business.legalName}</td>
+                    </tr>
+                    {filled(site.business.owner) && (
+                        <tr>
+                            <th>대표</th>
+                            <td>{site.business.owner}</td>
+                        </tr>
+                    )}
+                    {filled(site.business.registrationNo) && (
+                        <tr>
+                            <th>사업자등록번호</th>
+                            <td>{site.business.registrationNo}</td>
+                        </tr>
+                    )}
+                    <tr>
+                        <th>시공 지역</th>
+                        <td>{site.business.areaServedLabel}</td>
+                    </tr>
+                    {filled(site.contact.hours) && (
+                        <tr>
+                            <th>상담</th>
+                            <td>{site.contact.hours}</td>
+                        </tr>
+                    )}
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 07 정보 -->
+    <section class="sec sec--soft" id="guide">
+        <div class="wrap">
+            <div class="head">
+                <Kicker no="07" label="알아두면 좋은 정보" />
+                <h2>설치 전에 확인하세요</h2>
+            </div>
+            <ul class="index">
+                {guides.map((p, i) => (
+                    <li>
+                        <a href={`/${p.id}`}>
+                            <span class="index__no">
+                                {String(i + 1).padStart(2, "0")}
+                            </span>
+                            {p.data.image && (
+                                <img
+                                    src={thumb(p.data.image)}
+                                    alt=""
+                                    width="72"
+                                    height="54"
+                                    loading="lazy"
+                                />
+                            )}
+                            <span class="index__t">
+                                <strong>
+                                    {p.data.heading ?? p.data.title}
+                                </strong>
+                            </span>
+                            <Icon name="arrow" class="index__arr" />
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <!-- 08 FAQ -->
+    <section class="sec" id="faq">
+        <div class="wrap split">
+            <div>
+                <Kicker no="08" label="자주 묻는 질문" />
+                <h2 class="split__h">
+                    안전바 설치,
+                    <br />
+                    이런 점을 많이 물어보십니다
+                </h2>
+            </div>
+            <Faq items={site.faq} id="home-faq" />
+        </div>
+    </section>
+
+    <CtaSection />
+</Base>
+
+<script>
+    // 히어로 사진 전환: 3초마다 다음 장으로. 겹쳐 바뀌는 속도는 CSS transition(1.6초)이 정한다.
+    const box = document.querySelector("[data-slides]");
+    const imgs = box ? Array.from(box.querySelectorAll("img")) : [];
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (imgs.length > 1 && !still) {
+        let i = 0;
+        setInterval(() => {
+            if (document.hidden) return;
+            imgs[i].classList.remove("is-on");
+            i = (i + 1) % imgs.length;
+            imgs[i].classList.add("is-on");
+        }, 3000);
+    }
+</script>
+
+<style>
+    /* 히어로 */
+    .hero {
+        position: relative;
+        min-height: min(78vh, 720px);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        background: var(--dark);
+        color: #fff;
+    }
+    .hero__slides {
+        position: absolute;
+        inset: 0;
+    }
+    .hero__bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1.6s ease-in-out;
+    }
+    .hero__bg.is-on {
+        opacity: 1;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .hero__bg {
+            transition: none;
+        }
+    }
+    .hero__shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            100deg,
+            rgba(14, 24, 38, 0.92) 0%,
+            rgba(14, 24, 38, 0.72) 40%,
+            rgba(14, 24, 38, 0.18) 78%
+        );
+    }
+    .hero__in {
+        position: relative;
+        padding: 96px 0 120px;
+    }
+    .hero__eyebrow {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--blue);
+        margin-bottom: 18px;
+    }
+    .hero__h1 {
+        font-size: clamp(38px, 5.6vw, 64px);
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 1.15;
+    }
+    .hero__sub {
+        margin-top: 14px;
+        font-size: clamp(18px, 2vw, 22px);
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.92);
+    }
+    .hero__lead {
+        margin-top: 20px;
+        max-width: 520px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 16px;
+    }
+    .strip {
+        position: relative;
+        z-index: 2;
+        margin: -52px 0 0;
+        background: #fff;
+        border-radius: var(--r);
+        box-shadow: 0 18px 44px rgba(14, 24, 38, 0.12);
+        display: grid;
+        grid-template-columns: repeat(var(--n, 4), 1fr);
+    }
+    .strip div {
+        padding: 26px 28px;
+        border-left: 1px solid var(--line);
+    }
+    .strip div:first-child {
+        border-left: 0;
+    }
+    .strip dt {
+        font-size: 13px;
+        color: var(--ink-3);
+    }
+    .strip dd {
+        margin: 4px 0 0;
+        font-weight: 700;
+        font-size: 17px;
+    }
+    @media (max-width: 860px) {
+        .hero {
+            min-height: 0;
+        }
+        .hero__in {
+            padding: 64px 0 96px;
+        }
+        .hero__shade {
+            background: linear-gradient(
+                180deg,
+                rgba(14, 24, 38, 0.55) 0%,
+                rgba(14, 24, 38, 0.9) 70%
+            );
+        }
+        .strip {
+            grid-template-columns: 1fr 1fr;
+            margin-top: -40px;
+        }
+        .strip div {
+            padding: 18px 20px;
+        }
+        .strip div:nth-child(3) {
+            border-left: 0;
+        }
+        .strip div:nth-child(n + 3) {
+            border-top: 1px solid var(--line);
+        }
+        .strip dd {
+            font-size: 15px;
+        }
+    }
+
+    /* 01 사례 */
+    .cases {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px 24px;
+    }
+    .case h3 {
+        margin-top: 16px;
+        font-size: 18px;
+    }
+    .case p {
+        margin-top: 4px;
+        font-size: 15px;
+        color: var(--ink-2);
+    }
+    .case :global(img) {
+        transition: transform 0.4s;
+    }
+    .case:hover :global(img) {
+        transform: scale(1.03);
+    }
+    .case:hover h3 {
+        color: var(--blue-ink);
+    }
+    @media (max-width: 860px) {
+        .cases {
+            grid-template-columns: 1fr 1fr;
+            gap: 28px 14px;
+        }
+        .case h3 {
+            font-size: 16px;
+        }
+        .case p {
+            font-size: 14px;
+        }
+    }
+
+    .band {
+        border-block: 1px solid var(--line);
+        background: var(--blue-tint);
+    }
+    .band__in {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 0;
+        flex-wrap: wrap;
+    }
+    .band__t {
+        font-size: 18px;
+    }
+
+    /* 02 장소별: 지그재그 */
+    .rows {
+        display: grid;
+        gap: 20px;
+    }
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        overflow: hidden;
+        transition: border-color 0.2s;
+    }
+    .row:nth-child(even) :global(.photo) {
+        order: 2;
+    }
+    .row:hover {
+        border-color: var(--ink);
+    }
+    .row :global(.ph) {
+        border-radius: 0;
+        height: 100%;
+    }
+    .row__body {
+        padding: clamp(24px, 4vw, 48px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .row__no {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--blue-ink);
+    }
+    .row h3 {
+        margin-top: 8px;
+        font-size: clamp(22px, 2.4vw, 28px);
+    }
+    .row p {
+        margin: 12px 0 22px;
+        color: var(--ink-2);
+    }
+    .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 28px;
+    }
+    .chips a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .chips a:hover {
+        border-color: var(--ink);
+    }
+    .chips :global(svg) {
+        width: 15px;
+        height: 15px;
+        color: var(--ink-3);
+    }
+    @media (max-width: 720px) {
+        .row {
+            grid-template-columns: 1fr;
+        }
+        .row:nth-child(even) :global(.photo) {
+            order: 0;
+        }
+    }
+
+    /* 03 갤러리 */
+    .gal {
+        columns: 4 200px;
+        column-gap: 16px;
+    }
+    .gal li {
+        break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    @media (max-width: 720px) {
+        .gal {
+            columns: 2;
+            column-gap: 10px;
+        }
+    }
+
+    /* 04 순서 */
+    .steps {
+        display: grid;
+        grid-template-columns: repeat(var(--n, 4), 1fr);
+        border-top: 1.5px solid var(--ink);
+    }
+    .steps li {
+        padding: 24px 24px 0 0;
+    }
+    .steps span {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--blue);
+        letter-spacing: -0.03em;
+    }
+    .steps h3 {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .steps p {
+        margin-top: 8px;
+        font-size: 15px;
+        color: var(--ink-2);
+    }
+    .work {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 56px;
+    }
+    @media (max-width: 860px) {
+        .steps {
+            grid-template-columns: 1fr 1fr;
+            gap: 0 16px;
+        }
+        .steps li {
+            padding-right: 0;
+        }
+        .work {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* 05·06·08 좌우 분할 */
+    .split {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr;
+        gap: clamp(32px, 6vw, 80px);
+        align-items: start;
+    }
+    .split--photo {
+        grid-template-columns: 1fr 1.1fr;
+        align-items: center;
+    }
+    .split__h {
+        font-size: clamp(26px, 3.2vw, 36px);
+    }
+    .split__p {
+        margin: 18px 0 20px;
+        color: var(--ink-2);
+    }
+    .split__note {
+        font-weight: 700;
+        margin-bottom: 24px;
+        padding-left: 12px;
+        border-left: 3px solid var(--blue);
+    }
+    .factors {
+        border-top: 1.5px solid var(--ink);
+    }
+    .factors li {
+        display: flex;
+        gap: 20px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+    }
+    .factors span {
+        flex: none;
+        min-width: 24px;
+        font-weight: 700;
+        color: var(--blue-ink);
+        font-size: 15px;
+        padding-top: 2px;
+    }
+    .factors h3 {
+        font-size: 18px;
+    }
+    .factors p {
+        margin-top: 6px;
+        color: var(--ink-2);
+        font-size: 15px;
+    }
+    .biz {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 1.5px solid var(--ink);
+        font-size: 15px;
+    }
+    .biz th,
+    .biz td {
+        text-align: left;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+    }
+    .biz th {
+        width: 38%;
+        color: var(--ink-3);
+        font-weight: 500;
+    }
+    @media (max-width: 860px) {
+        .split,
+        .split--photo {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* 07 목록 */
+    .index {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: 40px;
+        border-top: 1.5px solid var(--ink);
+    }
+    .index a {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+    }
+    .index__no {
+        font-size: 13px;
+        color: var(--ink-3);
+        width: 22px;
+        flex: none;
+    }
+    .index img {
+        width: 72px;
+        height: 54px;
+        object-fit: cover;
+        border-radius: var(--r-sm);
+        flex: none;
+    }
+    .index__t {
+        flex: 1;
+        min-width: 0;
+    }
+    .index__t strong {
+        display: block;
+        font-size: 16px;
+    }
+    .index__t small {
+        display: block;
+        font-size: 14px;
+        color: var(--ink-2);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .index :global(.index__arr) {
+        color: var(--ink-3);
+    }
+    .index a:hover strong {
+        color: var(--blue-ink);
+    }
+    @media (max-width: 860px) {
+        .index {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+</style>

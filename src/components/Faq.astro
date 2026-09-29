@@ -1,0 +1,14 @@
+---
+interface Props { items: { q: string; a: string }[]; id?: string }
+import { nl, filled } from '../lib/text';
+const { items: all, id } = Astro.props;
+const items = all.filter((f) => filled(f.a)); // 답을 비워 둔 질문은 숨긴다
+---
+<div class="faq" id={id}>
+  {items.map((f, i) => (
+    <details open={i === 0}>
+      <summary><b>Q{String(i + 1).padStart(2, '0')}</b><span><Fragment set:html={nl(f.q)} /></span></summary>
+      <p><Fragment set:html={nl(f.a)} /></p>
+    </details>
+  ))}
+</div>

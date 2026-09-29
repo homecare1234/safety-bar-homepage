@@ -1,0 +1,24 @@
+---
+import { nl, filled } from '../lib/text';
+import site from '@site/site';
+import CtaButtons from './CtaButtons.astro';
+interface Props { heading?: string; body?: string }
+const { heading = '사진 한 장이면 비용과 날짜를 알려드립니다', body = '설치할 곳을 찍어 문자로 보내주세요.' } = Astro.props;
+---
+<section class="ctas">
+  <div class="wrap ctas__in">
+    <div>
+      <h2><Fragment set:html={nl(heading)} /></h2>
+      <p><Fragment set:html={nl(body)} /></p>
+      {filled(site.contact.hours) && <p class="ctas__hours">{site.contact.hours}</p>}
+    </div>
+    <CtaButtons dark lg />
+  </div>
+</section>
+<style>
+  .ctas { background: var(--dark); color: #fff; padding: clamp(56px, 8vw, 88px) 0; }
+  .ctas__in { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .ctas h2 { font-size: clamp(24px, 3vw, 32px); }
+  .ctas p { margin-top: 12px; color: rgba(255,255,255,.75); }
+  .ctas .ctas__hours { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 6px; }
+</style>

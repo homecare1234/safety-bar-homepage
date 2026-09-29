@@ -1,0 +1,16 @@
+---
+import { full, thumb, srcset } from '../lib/img';
+import { nl } from '../lib/text';
+interface Props { name: string; alt: string; ratio?: string; sizes?: string; eager?: boolean; class?: string; caption?: string }
+const { name, alt, ratio = '4 / 3', sizes = '(max-width: 720px) 100vw, 400px', eager = false, class: cls = '', caption } = Astro.props;
+---
+<figure class:list={['photo', cls]}>
+  <div class="ph" style={`aspect-ratio:${ratio}`}>
+    <img src={eager ? full(name) : thumb(name)} srcset={srcset(name)} sizes={sizes} alt={alt}
+      width="800" height="600" loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
+  </div>
+  {caption && <figcaption><Fragment set:html={nl(caption)} /></figcaption>}
+</figure>
+<style>
+  figcaption { margin-top: 10px; font-size: 14px; color: var(--ink-2); }
+</style>

@@ -1,0 +1,14 @@
+---
+// sms: 링크는 iOS가 «&body=», Android가 «?body=» 를 쓴다. 페이지 로드 시 한 번 맞춰준다.
+import site from '@site/site';
+const { phoneDigits, smsBody } = site.contact;
+---
+<script is:inline define:vars={{ phoneDigits, smsBody }}>
+  (function () {
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var sep = isIOS ? '&' : '?';
+    var href = 'sms:' + phoneDigits + sep + 'body=' + encodeURIComponent(smsBody);
+    document.querySelectorAll('a[data-sms]').forEach(function (a) { a.setAttribute('href', href); });
+  })();
+</script>
