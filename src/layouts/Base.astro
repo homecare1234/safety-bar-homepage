@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import SmsScript from '../components/SmsScript.astro';
+import Lightbox from '../components/Lightbox.astro';
 import site from '@site/site';
 interface Props { title: string; description: string; keywords?: string[]; path: string; image?: string | null; type?: 'website' | 'article'; jsonLd?: object[]; preload?: string }
 const { preload, ...props } = Astro.props;
@@ -20,5 +21,6 @@ const { preload, ...props } = Astro.props;
     <Footer />
     <MobileBar />
     <SmsScript />
+    <Lightbox />
   </body>
 </html>

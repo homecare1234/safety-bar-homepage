@@ -6,7 +6,7 @@ const { name, alt, ratio = '4 / 3', sizes = '(max-width: 720px) 100vw, 400px', e
 ---
 <figure class:list={['photo', cls]}>
   <div class="ph" style={`aspect-ratio:${ratio}`}>
-    <img src={eager ? full(name) : thumb(name)} srcset={srcset(name)} sizes={sizes} alt={alt}
+    <img src={eager ? full(name) : thumb(name)} srcset={srcset(name)} sizes={sizes} alt={alt} data-full={full(name)}
       width="800" height="600" loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
   </div>
   {caption && <figcaption><Fragment set:html={nl(caption)} /></figcaption>}
