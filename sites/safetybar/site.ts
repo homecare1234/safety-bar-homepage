@@ -87,7 +87,7 @@ const site = {
   // ── 검색엔진 소유 확인 코드 (서치어드바이저 / 서치콘솔에서 발급) ──
   verification: {
     // 각 사이트에서 발급받은 «값»만 넣는다 (태그 전체가 아니라 content="..." 안의 문자열)
-    naver: "", // 네이버 서치어드바이저 → HTML 태그 방식
+    naver: "5093591fca1c4a4a2c177501767f742b4cec200a", // 네이버 서치어드바이저 → HTML 태그 방식 (2026-09-30)
     google: "", // 구글 서치 콘솔 → HTML 태그 방식
     bing: "", // Bing 웹마스터 도구 → HTML 메타 태그(msvalidate.01). 구글 서치 콘솔에서 가져오기로 등록하면 필요 없음
     daum: "", // 다음 웹마스터도구 → 발급된 PIN 코드 한 줄 전체 (#DaumWebMasterTool:... 로 시작). robots.txt 맨 위에 들어감
