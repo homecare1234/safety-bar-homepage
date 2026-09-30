@@ -1,0 +1,140 @@
+---
+// 사진 크게 보기. <Photo>로 넣은 사진을 누르면 원본(1600px)을 화면 가운데 띄운다.
+// 링크 안에 있는 사진(시공 사례 카드 등)은 누르면 페이지로 가야 하므로 제외한다.
+// 닫기: 아무 데나 다시 누르기 · X 버튼 · Esc
+// 애니메이션: 누른 사진 자리에서 커져 가운데로 오고(FLIP), 닫으면 제자리로 줄어든다.
+// 시공 사진은 전부 4:3(썸네일 800×600 · 원본 1600×1200)이라 썸네일→원본 교체 때 크기가 튀지 않는다.
+---
+<dialog class="lb" aria-label="사진 크게 보기">
+  <div class="lb__bg" aria-hidden="true"></div>
+  <button class="lb__x" type="button" aria-label="닫기">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+  </button>
+  <figure class="lb__fig">
+    <img class="lb__img" alt="" width="1600" height="1200" />
+    <figcaption class="lb__cap"></figcaption>
+  </figure>
+</dialog>
+
+<script is:inline>
+  (function () {
+    var dlg = document.querySelector('dialog.lb');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var big = dlg.querySelector('.lb__img');
+    var cap = dlg.querySelector('.lb__cap');
+    var bg = dlg.querySelector('.lb__bg');
+    var chrome = [dlg.querySelector('.lb__x'), cap];
+
+    var EASE = 'cubic-bezier(0.32, 0.72, 0, 1)'; // iOS 시트·사진 앱과 비슷한 곡선
+    var OPEN_MS = 420, CLOSE_MS = 340;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    var src = null;   // 지금 크게 보고 있는 원래 사진(썸네일)
+    var want = '';    // 받아 오는 중인 원본 주소
+    var busy = false; // 애니메이션 도중 중복 클릭 막기
+
+    // 썸네일 자리 → 큰 사진 자리로 옮기는 transform
+    function fromThumb() {
+      var a = src.getBoundingClientRect(), b = big.getBoundingClientRect();
+      var s = a.width / b.width;
+      var dx = a.left + a.width / 2 - (b.left + b.width / 2);
+      var dy = a.top + a.height / 2 - (b.top + b.height / 2);
+      return 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')';
+    }
+
+    function open(img) {
+      if (busy || dlg.open) return;
+      src = img;
+      var full = img.dataset.full || img.currentSrc || img.src;
+      want = full;
+      big.src = img.currentSrc || img.src; // 이미 받은 사진부터 보여 준다
+      big.alt = img.alt;
+      if (full !== big.src) {
+        var pre = new Image();
+        pre.onload = function () { if (want === full && dlg.open) big.src = full; };
+        pre.src = full;
+      }
+      var fc = img.closest('figure') && img.closest('figure').querySelector('figcaption');
+      cap.textContent = fc ? fc.textContent.trim() : '';
+
+      document.documentElement.classList.add('lb-open');
+      dlg.showModal();
+      if (reduce.matches) return;
+
+      busy = true;
+      src.style.visibility = 'hidden'; // 사진이 «들려 올라가는» 느낌
+      var opts = { duration: OPEN_MS, easing: EASE };
+      var anim = big.animate([{ transform: fromThumb(), borderRadius: '10px' }, { transform: 'none', borderRadius: '6px' }], opts);
+      bg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: OPEN_MS, easing: 'ease-out' });
+      chrome.forEach(function (el) { el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, delay: OPEN_MS * 0.5, easing: 'ease-out', fill: 'backwards' }); });
+      var done = function () { busy = false; };
+      anim.onfinish = anim.oncancel = done;
+      setTimeout(done, OPEN_MS + 300); // 탭이 백그라운드라 애니메이션이 멈춰도 닫기가 막히지 않게
+    }
+
+    // 원래 사진을 «먼저» 다시 보이게 한 뒤 같은 순간에 닫는다.
+    // (순서가 반대면 큰 사진이 사라진 뒤 한 프레임 동안 자리가 비어 깜빡인다)
+    function finish() {
+      if (src) src.style.visibility = '';
+      document.documentElement.classList.remove('lb-open'); // 스크롤 잠금도 같은 순간에 푼다
+      if (dlg.open) dlg.close();
+    }
+
+    function close() {
+      if (!dlg.open || busy) return;
+      if (reduce.matches || !src) return finish();
+      busy = true;
+      var opts = { duration: CLOSE_MS, easing: EASE, fill: 'forwards' };
+      var anim = big.animate([{ transform: 'none', borderRadius: '6px' }, { transform: fromThumb(), borderRadius: '10px' }], opts);
+      bg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: CLOSE_MS, easing: 'ease-in', fill: 'forwards' });
+      chrome.forEach(function (el) { el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, fill: 'forwards' }); });
+      var ended = false;
+      var done = function () { if (ended) return; ended = true; busy = false; finish(); };
+      anim.onfinish = anim.oncancel = done;
+      setTimeout(done, CLOSE_MS + 300); // 애니메이션이 멈춰도 반드시 닫히게
+    }
+
+    dlg.addEventListener('click', close); // 사진·음영·X 어디를 눌러도 닫힘
+    dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); }); // Esc도 애니메이션으로
+    dlg.addEventListener('close', function () {
+      document.documentElement.classList.remove('lb-open');
+      if (src) src.style.visibility = '';
+      big.getAnimations().concat(bg.getAnimations()).forEach(function (a) { a.cancel(); });
+      chrome.forEach(function (el) { el.getAnimations().forEach(function (a) { a.cancel(); }); });
+      src = null; want = ''; busy = false;
+      big.removeAttribute('src');
+    });
+
+    document.querySelectorAll('.photo img').forEach(function (img) {
+      if (img.closest('a')) return;
+      img.classList.add('zoomable');
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt || '시공 사진') + ' 크게 보기');
+      img.addEventListener('click', function () { open(img); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+      });
+    });
+  })();
+</script>
+
+<style is:global>
+  .zoomable { cursor: zoom-in; }
+  .zoomable:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+  /* 스크롤을 잠가도 스크롤바 자리만큼 화면이 옆으로 밀리지 않게 (밀리면 닫힐 때 사진이 엉뚱한 자리로 돌아간다) */
+  html { scrollbar-gutter: stable; }
+  html.lb-open { overflow: hidden; }
+
+  .lb { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; cursor: zoom-out; overflow: visible; }
+  .lb[open] { display: flex; align-items: center; justify-content: center; }
+  .lb::backdrop { background: transparent; } /* 음영은 애니메이션을 위해 .lb__bg가 맡는다 */
+  .lb__bg { position: fixed; inset: 0; background: rgba(14, 24, 38, .88); }
+  .lb__fig { position: relative; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  /* 크기를 4:3으로 고정해 썸네일(800)→원본(1600) 교체 때 크기가 변하지 않게 한다 */
+  .lb__img { width: min(92vw, 1600px, calc(84vh * 4 / 3)); height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; background: #1a2635; transform-origin: center center; will-change: transform; }
+  .lb__cap { color: rgba(255, 255, 255, .85); font-size: 15px; text-align: center; padding: 0 16px; }
+  .lb__cap:empty { display: none; }
+  .lb__x { position: fixed; z-index: 1; top: calc(14px + env(safe-area-inset-top)); right: 14px; width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff; cursor: pointer; }
+  .lb__x:hover { background: rgba(255, 255, 255, .22); }
+</style>
