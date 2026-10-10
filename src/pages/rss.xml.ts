@@ -17,5 +17,6 @@ export async function GET(context: APIContext) {
       pubDate: new Date('2026-09-24'),
     })),
     customData: '<language>ko-kr</language>',
+    trailingSlash: false, // 페이지 주소는 /cost 형태(끝에 / 없음). /cost/ 는 /cost 로 넘겨지는 주소라 피드에 넣지 않는다
   });
 }
