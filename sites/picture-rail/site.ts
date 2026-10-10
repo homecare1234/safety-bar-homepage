@@ -95,7 +95,7 @@ const site = {
 
   // ── 검색엔진 소유 확인 코드 (서브도메인마다 따로 발급) ──
   verification: {
-    naver: "",
+    naver: "dd70dbc257bae0557094c7497e6807b880163385", // 네이버 서치어드바이저 → HTML 태그 방식 (2026-10-10)
     google: "",
     bing: "",
     daum: "",
