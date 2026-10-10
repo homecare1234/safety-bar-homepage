@@ -17,6 +17,8 @@ const site = {
   // true로 바꾸면 noindex가 풀리고 안내 줄이 사라진다. 전화번호가 자리표시자면 빌드가 멈춘다.
   launched: true, // 2026-09-29 프로덕션 전환
   lang: "ko",
+  // 메인·세부 페이지 공유 이미지 기본값 (시공 사진 bathroom-safety-bar-09를 1200×630으로 자른 것)
+  ogImage: "/og.jpg",
 
   // ── 검색 결과에 뜨는 제목. 로고(브랜드)와 다르게 «검색어»로 쓴다 ──
   title: "화장실 안전바 설치",
@@ -231,6 +233,18 @@ const site = {
     { q: "타일 벽에 구멍을 뚫어도 괜찮나요?", a: "네. 타일 파손 걱정 없이 시공합니다." },
     { q: "출장비나 견적비가 따로 있나요?", a: "출장비와 견적비 모두 무료입니다." },
   ],
+
+  // 메인 페이지 제목들처럼 사이트마다 달라지는 문구. \n은 줄바꿈
+  text: {
+    serviceType: "안전바 설치", // 구조화 데이터(Service)
+    catalogName: "안전바 설치 서비스",
+    servicesHeading: "어디에 어떤 안전바가 필요할까요?",
+    galleryHeading: "같은 안전바도 집마다 자리가 다릅니다",
+    galleryAltSuffix: "안전바 설치", // 갤러리 사진 alt = «캡션 + 이 말»
+    faqHeading: "안전바 설치,\n이런 점을 많이 물어보십니다",
+    // 세부 페이지 상단에 붙는 분류 이름 (content/*.md의 group)
+    groupLabels: { service: "서비스 안내", space: "설치 장소별", target: "이용 대상별", info: "알아두면 좋은 정보" },
+  },
 
   nav: [
     { label: "비용 안내", href: "/cost" },

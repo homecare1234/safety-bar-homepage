@@ -17,6 +17,9 @@ for (const f of await readdir(contentDir)) {
   const m = (await readFile(path.join(contentDir, f), 'utf8')).match(/^image:\s*"([^"]+)"/m);
   if (m) names.add(m[1]);
 }
+// 메인 대표 사진(site.ts hero.image)도 메인 공유 이미지로 쓴다
+const hero = (await readFile(path.resolve('sites', SITE, 'site.ts'), 'utf8')).match(/hero:[\s\S]*?\bimage:\s*"([^"]+)"/);
+if (hero) names.add(hero[1]);
 for (const n of names) {
   await sharp(path.join(IMG, `${n}.webp`)).resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 82, mozjpeg: true }).toFile(path.join(OUT, `${n}.jpg`));
   console.log(`og/${n}.jpg`);

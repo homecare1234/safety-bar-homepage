@@ -33,7 +33,7 @@ const jsonLd = [
         "@context": "https://schema.org",
         "@type": "Service",
         name: site.shortTitle,
-        serviceType: "안전바 설치",
+        serviceType: site.text.serviceType,
         description: site.description,
         provider: { "@id": new URL("/#business", site.url).href },
         areaServed: site.business.areaServed.map((n) => ({
@@ -43,7 +43,7 @@ const jsonLd = [
         image: site.cases.map((c) => new URL(full(c.image), site.url).href),
         hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: "안전바 설치 서비스",
+            name: site.text.catalogName,
             itemListElement: spaces.map((p) => ({
                 "@type": "Offer",
                 itemOffered: {
@@ -151,7 +151,7 @@ const jsonLd = [
         <div class="wrap">
             <div class="head">
                 <Kicker no="02" label="설치 장소별 안내" />
-                <h2>어디에 어떤 안전바가 필요할까요?</h2>
+                <h2><Fragment set:html={nl(site.text.servicesHeading)} /></h2>
             </div>
             <div class="rows">
                 {rows.map((p, i) => (
@@ -196,14 +196,14 @@ const jsonLd = [
         <div class="wrap">
             <div class="head">
                 <Kicker no="03" label="유형별 시공 사진" />
-                <h2>같은 안전바도 집마다 자리가 다릅니다</h2>
+                <h2><Fragment set:html={nl(site.text.galleryHeading)} /></h2>
             </div>
             <ul class="gal">
                 {site.gallery.map((g, i) => (
                     <li>
                         <Photo
                             name={g.image}
-                            alt={`${g.caption} 안전바 설치`}
+                            alt={`${g.caption} ${site.text.galleryAltSuffix}`}
                             caption={g.caption}
                             ratio={
                                 i % 3 === 0
@@ -381,11 +381,7 @@ const jsonLd = [
         <div class="wrap split">
             <div>
                 <Kicker no="08" label="자주 묻는 질문" />
-                <h2 class="split__h">
-                    안전바 설치,
-                    <br />
-                    이런 점을 많이 물어보십니다
-                </h2>
+                <h2 class="split__h"><Fragment set:html={nl(site.text.faqHeading)} /></h2>
             </div>
             <Faq items={site.faq} id="home-faq" />
         </div>

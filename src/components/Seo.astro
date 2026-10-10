@@ -7,8 +7,8 @@ interface Props {
 }
 const { title, description, keywords = site.keywords, path, image, type = 'website', jsonLd = [] } = Astro.props;
 const canonical = new URL(path, site.url).href;
-// 기본 공유 이미지: 시공 사진(bathroom-safety-bar-09)을 1200×630으로 자른 것. 세부 페이지는 자기 대표 사진을 쓴다
-const ogImage = new URL(image ?? '/og.jpg', site.url).href;
+// 기본 공유 이미지는 사이트마다 site.ts의 ogImage. 세부 페이지는 자기 대표 사진을 쓴다
+const ogImage = new URL(image ?? site.ogImage, site.url).href;
 const { business, contact, brand } = site;
 
 const localBusiness = {

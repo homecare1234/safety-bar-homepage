@@ -4,12 +4,13 @@
 디자인·SEO 장치는 `src/`에 공통으로 있고, 사이트마다 다른 것은 `sites/<이름>/`에만 있습니다.
 
 ```
-sites/safetybar/site.ts        ← 제목·키워드·업체정보·FAQ·비용 안내 (안전바 사이트)
-sites/safetybar/content/*.md   ← 키워드 전용 페이지 17개. 파일 하나 = URL 하나
-src/                           ← 레이아웃·컴포넌트·SEO (모든 사이트 공통, 손댈 일 거의 없음)
+sites/safetybar/site.ts        ← 제목·키워드·업체정보·FAQ·비용 안내·메인 문구 (안전바 사이트)
+sites/safetybar/content/*.md   ← 키워드 전용 페이지. 파일 하나 = URL 하나
+sites/picture-rail/            ← 액자레일 사이트 (같은 구조)
+src/                           ← 레이아웃·컴포넌트·SEO (모든 사이트 공통 — 고치면 모든 사이트가 바뀜)
 scripts/images.mjs             ← 카카오톡 원본 사진 → 웹용 WebP 변환
-사이트/                        ← 원본 사진 (git에 올리지 않음, .gitignore)
-public/images/<사이트>/        ← 변환된 사진이 들어가는 곳
+자료/<사이트>/                 ← 원본 사진·키워드 (git에 올리지 않음). 안전바만 예전 위치인 사이트/
+public/images/<사이트>/        ← 변환된 사진. 빌드할 때 다른 사이트 사진은 결과에서 빠짐
 ```
 
 ## 로컬에서 보기
@@ -24,11 +25,12 @@ npm run build        # dist/ 생성
 
 ## 새 키워드 사이트 추가 (예: 방충망)
 
-1. `sites/safetybar` 폴더를 `sites/screen`으로 복사
-2. `sites/screen/site.ts`의 `id`, `url`, `title`, `keywords`, `hero`, `faq`, `pricing`, `nav` 수정
-3. `sites/screen/content/*.md`를 새 키워드에 맞게 다시 작성 (파일명 = URL)
-4. Vercel에서 **새 프로젝트**를 만들고 같은 저장소 연결, 환경변수 `SITE=screen`, 도메인 `screen.현명한홈케어.com` 연결
-5. 네이버 서치어드바이저·구글 서치콘솔에 새 서브도메인을 따로 등록하고 발급 코드를 `site.ts`의 `verification`에 입력
+1. 원본 사진을 `자료/screen/<장소별 폴더>/`에 넣고, `scripts/images.mjs`의 `folderSlugs`에 폴더 이름 → 파일 이름을 추가한 뒤 `node scripts/images.mjs screen`
+2. `sites/picture-rail` 폴더를 `sites/screen`으로 복사
+3. `sites/screen/site.ts`의 `id`, `url`, `ogImage`, `title`, `keywords`, `hero`, `faq`, `pricing`, `text`, `nav` 수정 (`launched: false`로 시작)
+4. `sites/screen/content/*.md`를 새 키워드에 맞게 다시 작성 (파일명 = URL), `node scripts/og.mjs screen`
+5. Cloudflare에서 **새 프로젝트**를 만들고 같은 저장소 연결, 빌드 변수 `SITE=screen`·`NODE_VERSION=22`, 도메인 `screen.현명한홈케어.com` 연결
+6. 네이버 서치어드바이저·구글 서치콘솔에 새 서브도메인을 따로 등록하고 발급 코드를 `site.ts`의 `verification`에 입력
 
 ## Vercel 배포
 

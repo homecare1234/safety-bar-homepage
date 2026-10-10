@@ -20,7 +20,7 @@ const heading = d.heading ?? d.title;
 const all = (await getCollection('pages')).sort((a, b) => a.data.order - b.data.order);
 const others = all.filter((p) => p.id !== page.id);
 const related = others.filter((p) => p.data.group === d.group).slice(0, 5);
-const groupLabel: Record<string, string> = { service: '서비스 안내', space: '설치 장소별', target: '이용 대상별', info: '알아두면 좋은 정보' };
+const groupLabel: Record<string, string> = site.text.groupLabels;
 const toc = headings.filter((h) => h.depth === 2);
 const answered = d.faq.filter((f) => filled(f.a)); // 답을 비워 둔 질문은 숨긴다
 const hero = d.image ?? site.hero.image!;

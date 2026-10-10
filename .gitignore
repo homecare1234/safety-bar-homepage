@@ -9,6 +9,7 @@ dist/
 
 # 카카오톡 원본 사진 (133MB). 웹용으로 변환한 것만 sites/*/images 에 둔다.
 사이트/
+자료/
 
 # Claude Code 개인 설정 (공유 설정 .claude/settings.json 은 올린다)
 .claude/settings.local.json

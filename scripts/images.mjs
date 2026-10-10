@@ -4,24 +4,35 @@
 //  - 파일명을 키워드 슬러그로 변경: <slug>-01.webp, <slug>-02.webp ...
 //  - 카드용 썸네일(긴 변 800px)도 함께 생성: <slug>-01-thumb.webp
 // 사용법: node scripts/images.mjs [SITE]   (기본 safetybar)
+//  - 원본 위치: 자료/<SITE>/ (안전바만 예전 위치인 사이트/)
 import sharp from 'sharp';
 import { readdir, mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const SITE = process.argv[2] ?? 'safetybar';
-const SRC = path.resolve('사이트');
+const SRC = path.resolve(SITE === 'safetybar' ? '사이트' : path.join('자료', SITE));
 const OUT = path.resolve('public/images', SITE);
 
 // 원본 폴더 이름 → 파일명 슬러그 (SEO: URL과 파일명에 키워드가 들어간다)
-const folderSlug = {
-  '1': 'bathroom-safety-bar',
-  '세면대': 'sink-safety-bar',
-  '욕실 욕조': 'bathtub-safety-bar',
-  '소변기': 'urinal-safety-bar',
-  '계단안전바': 'stairs-safety-bar',
-  '핸드레일': 'handrail',
-  '안전가드': 'bed-safety-guard',
+const folderSlugs = {
+  safetybar: {
+    '1': 'bathroom-safety-bar',
+    '세면대': 'sink-safety-bar',
+    '욕실 욕조': 'bathtub-safety-bar',
+    '소변기': 'urinal-safety-bar',
+    '계단안전바': 'stairs-safety-bar',
+    '핸드레일': 'handrail',
+    '안전가드': 'bed-safety-guard',
+  },
+  'picture-rail': {
+    '액자레일': 'picture-rail',
+    '사무실 액자레일': 'office-picture-rail',
+    '가족사진 액자레일': 'family-photo-picture-rail',
+    '웨딩사진 액자레일': 'wedding-photo-picture-rail',
+    '전시, 갤러리 액자레일': 'gallery-picture-rail',
+  },
 };
+const folderSlug = folderSlugs[SITE] ?? {};
 
 await mkdir(OUT, { recursive: true });
 const manifest = [];
