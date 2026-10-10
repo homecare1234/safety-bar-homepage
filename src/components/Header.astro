@@ -9,7 +9,7 @@ const { brand, nav, contact } = site;
       {brand.logoImage ? <img src={brand.logoImage} alt={brand.name} width="150" height="36" /> : <><span class="logo__bar" aria-hidden="true"></span>{brand.name}</>}
     </a>
     <nav class="nav" aria-label="주요 메뉴">{nav.map((n) => <a href={n.href}>{n.label}</a>)}</nav>
-    <a class="btn btn--blue hdr__cta" href={contact.telHref}><Icon name="phone" /><span class="hdr__num">{contact.phoneDisplay}</span><span class="hdr__short">전화</span></a>
+    <a class="btn btn--blue hdr__cta" href={contact.telHref}><Icon name="phone" /><span class="hdr__num">{contact.phoneDisplay}</span></a>
   </div>
 </header>
 <style>
@@ -21,7 +21,6 @@ const { brand, nav, contact } = site;
   .nav a { font-size: 15px; font-weight: 500; color: var(--ink-2); }
   .nav a:hover { color: var(--ink); }
   .hdr__cta { min-height: 42px; padding: 0 16px; font-size: 15px; }
-  .hdr__short { display: none; }
   @media (max-width: 960px) { .nav { display: none; } .hdr__cta { margin-left: auto; } }
-  @media (max-width: 720px) { .hdr__in { height: 58px; } .hdr__num { display: none; } .hdr__short { display: inline; } .hdr__cta { min-height: 38px; padding: 0 14px; } }
+  @media (max-width: 720px) { .hdr__in { height: 58px; gap: 12px; } .hdr__cta { min-height: 38px; padding: 0 12px; gap: 6px; font-size: 14px; } }
 </style>

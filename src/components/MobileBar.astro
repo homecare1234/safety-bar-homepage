@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 const { contact } = site;
 ---
 <div class="dock" role="region" aria-label="빠른 상담">
-  <a href={contact.telHref} class="dock__btn dock__btn--tel" data-cta="tel"><Icon name="phone" /><span>전화 상담</span></a>
+  <a href={contact.telHref} class="dock__btn dock__btn--tel" data-cta="tel"><Icon name="phone" /><span class="dock__txt">전화 상담<small>{contact.phoneDisplay}</small></span></a>
   <a href={`sms:${contact.phoneDigits}`} data-sms class="dock__btn dock__btn--sms" data-cta="sms"><Icon name="sms" /><span>문자 상담</span></a>
 </div>
 <style>
@@ -16,6 +16,8 @@ const { contact } = site;
   }
   .dock__btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 62px; border-radius: 9px; font-weight: 700; font-size: 19px; }
   .dock__btn svg { width: 22px; height: 22px; }
+  .dock__txt { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
+  .dock__txt small { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
   .dock__btn--tel { background: var(--blue); color: var(--dark); }
   .dock__btn--tel:hover { background: var(--blue-hover); }
   .dock__btn--sms { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
