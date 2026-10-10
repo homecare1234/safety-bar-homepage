@@ -239,7 +239,7 @@ const site = {
     serviceType: "액자레일 설치",
     catalogName: "액자레일 설치 서비스",
     servicesHeading: "어디에 액자레일을 다시나요?",
-    galleryHeading: "같은 레일도 거는 것마다 모습이 다릅니다",
+    galleryHeading: "액자레일 시공 사진",
     galleryAltSuffix: "액자레일 설치",
     faqHeading: "액자레일 설치,\n이런 점을 많이 물어보십니다",
     groupLabels: { service: "서비스 안내", space: "설치 장소별", target: "거는 액자별", info: "알아두면 좋은 정보" },
