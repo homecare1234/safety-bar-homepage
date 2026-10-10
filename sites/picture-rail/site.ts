@@ -18,7 +18,7 @@ const site = {
 
   // ── 정식 공개 여부 ──
   // false(시안): 검색엔진 수집 차단(noindex + robots.txt 차단) + 화면 맨 위에 «시안» 안내 줄.
-  launched: false,
+  launched: true, // 2026-10-10 바로 공개 (사용자 결정)
   lang: "ko",
   // 메인 공유 이미지 (hero.image를 scripts/og.mjs가 1200×630으로 자른 것)
   ogImage: "/images/picture-rail/og/picture-rail-05.jpg",
