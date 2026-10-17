@@ -91,7 +91,7 @@ const site = {
 
   // ── 검색엔진 소유 확인 코드 (서브도메인마다 따로 발급) ──
   verification: {
-    naver: "",
+    naver: "ab56045f2d9aae46ebd9474772d3873fcbe14e28",
     google: "",
     bing: "",
     daum: "",
