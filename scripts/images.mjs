@@ -31,6 +31,11 @@ const folderSlugs = {
     '웨딩사진 액자레일': 'wedding-photo-picture-rail',
     '전시, 갤러리 액자레일': 'gallery-picture-rail',
   },
+  fan: {
+    '환풍기': 'bathroom-fan',
+    '휴젠뜨': 'himpel-hugente-fan',
+    '티오람': 'tioram-fan',
+  },
 };
 const folderSlug = folderSlugs[SITE] ?? {};
 
