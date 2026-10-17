@@ -24,7 +24,7 @@ const site = {
   ogImage: "/images/fan/og/himpel-hugente-fan-14.jpg",
 
   // ── 검색 결과에 뜨는 제목. 로고(브랜드)와 다르게 «검색어»로 쓴다 ──
-  title: "서울 · 경기 · 인천 환풍기 교체",
+  title: "환풍기 교체 전문 업체 비용",
   shortTitle: "화장실 환풍기 교체",
   description:
     "욕실 · 화장실 환풍기 교체 · 설치 전문 업체. 담배 냄새, 악취, 소음, 고장 수리, 복합 환풍기, 힘펠 휴젠뜨, 티오람 시공",

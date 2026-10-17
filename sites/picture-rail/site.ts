@@ -24,7 +24,7 @@ const site = {
   ogImage: "/images/picture-rail/og/picture-rail-05.jpg",
 
   // ── 검색 결과에 뜨는 제목. 로고(브랜드)와 다르게 «검색어»로 쓴다 ──
-  title: "서울 · 경기 · 인천 액자레일 설치",
+  title: "액자레일 설치 전문 업체 비용",
   shortTitle: "액자레일 설치",
   description:
     "액자레일 설치 전문 업체. 가정집 · 사무실 · 갤러리 못 없이 액자 거는 무타공 와이어 시공",
