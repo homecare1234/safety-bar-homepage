@@ -36,6 +36,18 @@ const folderSlugs = {
     '휴젠뜨': 'himpel-hugente-fan',
     '티오람': 'tioram-fan',
   },
+  // 원본은 «새 폴더 (N)»이라 현장마다 후드 모양으로 이름을 붙여 옮겼다 (현장 하나 = 폴더 하나)
+  hood: {
+    '슬림형 주방후드': 'slim-kitchen-hood', // 새 폴더
+    '슬림형 렌지후드': 'slim-range-hood', // 새 폴더 (14)
+    '침니형 주방후드': 'chimney-kitchen-hood', // 새 폴더 (4)
+    '침니형 렌지후드': 'chimney-range-hood', // 새 폴더 (8)
+    '주방후드': 'kitchen-hood', // 새 폴더 (2)
+    '렌지후드': 'range-hood', // 새 폴더 (3)
+    '주방후드 교체': 'kitchen-hood-replacement', // 새 폴더 (5)
+    '렌지후드 교체': 'range-hood-replacement', // 새 폴더 (6)
+    '가스레인지 후드': 'gas-range-hood', // 새 폴더 (13)
+  },
 };
 const folderSlug = folderSlugs[SITE] ?? {};
 
