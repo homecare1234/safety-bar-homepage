@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "push": "node scripts/push.mjs"
+    "push": "node scripts/push.mjs",
+    "deploy": "node scripts/deploy.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

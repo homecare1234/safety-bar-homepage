@@ -20,7 +20,7 @@ Claude는 아래를 **한 번에 한 단계씩** 안내하고, 단계마다 «�
 
 > 설정값 (확인 전 기본값 — A-0에서 실제 값으로 바꿀 것)
 > - Build command: `npm run build`
-> - Deploy command: `npx wrangler deploy` (기존 Worker 값 그대로)
+> - Deploy command: `npm run deploy` (업로드 실패 시 3번까지 자동 재시도 — scripts/deploy.mjs. 2026-10-25부터 네 Worker 모두 이 값)
 > - Build variables: `SITE` = `<사이트>`, `NODE_VERSION` = `22`
 
 ### A-1. 새로 만들기
@@ -61,6 +61,7 @@ A로 연결해 둔 사이트는 **깃허브에 올리면 Cloudflare가 1~3분 �
 Claude가 결과를 확인하는 법 (공개 저장소라 로그인 없이 된다):
 `curl -s https://api.github.com/repos/homecare1234/safety-bar-homepage/commits/<커밋>/check-runs` → 사이트별 `conclusion`
 - `success`: 반영됨. 실제 주소를 열어 확인한다.
-- `failure`인데 **0초 만에** 끝났으면 Cloudflare 쪽 일시 오류일 가능성이 크다(코드 문제면 몇십 초 돌다가 실패한다).
+- 깃허브의 «0초»는 믿지 말 것(실제 시간이 아님). 실패하면 크롬으로 Cloudflare 빌드 화면 → 맨 오른쪽 «배포 중» 단계를 눌러 로그 끝을 본다.
+  `assets-upload-session failed` / `code: 10013`이면 Cloudflare 일시 오류 → **빌드 다시 시도**. (npm run deploy가 이미 3번 재시도한다)
   준호형에게 깃허브 화면의 실패 항목 → **Re-run**(다시 실행)을 누르게 하거나, 다음에 올릴 때 저절로 다시 돈다.
 - 몇십 초 돌다가 `failure`면 Cloudflare 빌드 기록 화면 캡처를 받아 원인을 고친다.
