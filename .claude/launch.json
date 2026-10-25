@@ -1,0 +1,9 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "safetybar", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "safetybar", "4321"], "port": 4321 },
+    { "name": "picture-rail", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "picture-rail", "4322"], "port": 4322 },
+    { "name": "fan", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "fan", "4323"], "port": 4323 },
+    { "name": "hood", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "hood", "4324"], "port": 4324 }
+  ]
+}

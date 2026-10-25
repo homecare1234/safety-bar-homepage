@@ -9,8 +9,9 @@ import { existsSync } from 'node:fs';
 const SITES = ['safetybar', 'picture-rail', 'fan', 'hood'];
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
-const run = (cmd, args, env) =>
-  spawnSync(cmd, args, { stdio: 'inherit', shell: process.platform === 'win32', env: { ...process.env, ...env } }).status === 0;
+const run = (cmd, args, env) => spawnSync(cmd, args, { stdio: 'inherit', env: { ...process.env, ...env } }).status === 0;
+// Windows에서 npm은 .cmd라 셸로만 실행된다. 셸에 인자 배열을 넘기면 경고가 나서 한 줄 문자열로 넘긴다.
+const npm = (command, env) => spawnSync(`npm ${command}`, { stdio: 'inherit', shell: true, env: { ...process.env, ...env } }).status === 0;
 const stop = (msg) => {
   console.error(`\n❌ ${msg}\n   이 화면을 그대로 복사해서 Claude에게 보여 주세요.\n`);
   process.exit(1);
@@ -29,7 +30,7 @@ const changed = git('status', '--porcelain') !== '';
 if (changed) {
   for (const s of SITES) {
     console.log(`\n▶ ${s} 사이트 빌드 확인 중...`);
-    if (!run('npm', ['run', 'build', '--silent'], { SITE: s })) stop(`${s} 사이트 빌드가 실패해서 올리지 않았어요.`);
+    if (!npm('run build --silent', { SITE: s })) stop(`${s} 사이트 빌드가 실패해서 올리지 않았어요.`);
   }
 
   // 2. 저장(commit)
