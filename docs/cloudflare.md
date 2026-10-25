@@ -29,7 +29,7 @@ Claude는 아래를 **한 번에 한 단계씩** 안내하고, 단계마다 «�
 3. 저장소 **safety-bar-homepage** 선택 → **Next**(다음)
 
 ### A-2. 이름과 설정
-1. **Project name**(프로젝트 이름): `<사이트>` (예: `hood`) — 영어 소문자
+1. **Project name**(프로젝트 이름): `<사이트>-homepage` (예: `hood-homepage`) — 기존 이름(safety-bar-homepage, fan-homepage, picture-rail-homepage)과 같은 형식
 2. Build command / Deploy command: 위 «설정값» 그대로 붙여 넣기
 3. **Advanced settings**(고급 설정) 펼치기 → **Build variables**(빌드 변수) → **Add**(추가)
    - 이름 `SITE`, 값 `<사이트>`
@@ -46,13 +46,14 @@ Claude는 아래를 **한 번에 한 단계씩** 안내하고, 단계마다 «�
 
 ---
 
-## B. 수정 후 다시 반영 (고칠 때마다)
+## B. 수정 후 반영 — 자동이다
 
-Claude가 깃허브에 올린 다음에 한다.
+A로 연결해 둔 사이트는 **깃허브에 올리면 Cloudflare가 1~3분 안에 알아서 다시 만든다.** 준호형이 할 일은 없다.
+(올릴 때마다 연결된 사이트 전부가 다시 만들어진다. 2026-10-25 확인: 올린 커밋마다 safety-bar·fan·picture-rail 빌드가 자동으로 돌았다.)
 
-1. **Workers & Pages** → 고친 사이트 이름 클릭
-2. **Deployments**(배포) 탭 → 빌드를 다시 실행하는 버튼(예: **Retry build**, **Deploy**, 오른쪽 **⋯** 메뉴 안)
-   — 화면마다 위치가 다르니 캡처를 보고 Claude가 짚어 준다.
-3. **Success**(성공)가 뜨면 실제 주소에서 **Ctrl + F5**(새로고침)로 확인.
-
-> 공통 디자인(`src/`)을 고쳤으면 **모든 사이트**를 각각 다시 반영해야 한다.
+Claude가 결과를 확인하는 법 (공개 저장소라 로그인 없이 된다):
+`curl -s https://api.github.com/repos/homecare1234/safety-bar-homepage/commits/<커밋>/check-runs` → 사이트별 `conclusion`
+- `success`: 반영됨. 실제 주소를 열어 확인한다.
+- `failure`인데 **0초 만에** 끝났으면 Cloudflare 쪽 일시 오류일 가능성이 크다(코드 문제면 몇십 초 돌다가 실패한다).
+  준호형에게 깃허브 화면의 실패 항목 → **Re-run**(다시 실행)을 누르게 하거나, 다음에 올릴 때 저절로 다시 돈다.
+- 몇십 초 돌다가 `failure`면 Cloudflare 빌드 기록 화면 캡처를 받아 원인을 고친다.

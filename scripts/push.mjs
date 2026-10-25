@@ -57,4 +57,4 @@ if (!run('git', ['pull', '--rebase'])) {
 console.log('\n▶ 깃허브에 올리는 중...');
 if (!run('git', ['push'])) stop('깃허브에 올리지 못했어요.');
 
-console.log('\n✅ 깃허브에 올렸어요! 이제 Cloudflare에서 배포하면 사이트에 반영돼요.\n');
+console.log('\n✅ 깃허브에 올렸어요! 2~3분 뒤 Cloudflare가 알아서 사이트에 반영해요.\n');
