@@ -1,0 +1,4 @@
+- [현명한 홈케어 프로젝트](hyeonmyeong-homecare-project.md) — 브랜드·도메인·전화/문자 상담·저장소 1개+Vercel N개 구조 확정 사항
+- [AI 티 금지 디자인 피드백](design-no-ai-look.md) — 레퍼런스 톤 따라가기, 배지·그라데이션·아이콘 타일 금지, 파랑은 점으로만
+- [환풍기 사이트 검색 문구](fan-site-search-text.md) — 새로 만들 환풍기 사이트의 title·description 확정 문구
+- [준호형 컴퓨터 이관](junho-handoff.md) — 2026-10-25 이관, 기존 메모리의 «사용자»는 원래 제작자
