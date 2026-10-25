@@ -5,17 +5,17 @@
 
 ## 사람이 먼저 할 일 (Claude 켜기 전에)
 
-1. **Node.js 22 이상** 설치 (https://nodejs.org, LTS). 터미널에서 `node -v`로 확인
+1. **Node.js 22 이상** 설치 (https://nodejs.org, LTS. «Windows 설치 프로그램 (.msi)», «Tools for Native Modules» 체크 안 함). 터미널에서 `node -v`로 확인
 2. **Claude Code** 설치·로그인
 3. 저장소 받기
    ```bash
    cd ~/Desktop
-   git clone <저장소 주소> junho
-   cd junho
+   git clone https://github.com/homecare1234/safety-bar-homepage.git
+   cd safety-bar-homepage
    ```
-4. **원본 사진 옮기기** (git에 없음, 약 1.2GB). 원래 컴퓨터의 `junho/자료/`, `junho/사이트/` 폴더를 USB·AirDrop으로 가져와서 새 `junho/` 바로 아래에 같은 이름으로 넣기.
+4. **원본 사진 옮기기** (git에 없음, 약 1.2GB). 원래 컴퓨터의 `자료/`, `사이트/` 폴더를 USB·AirDrop으로 가져와서 새 `safety-bar-homepage/` 바로 아래에 같은 이름으로 넣기.
    새 사진을 변환할 때만 필요하고, 빌드·글 수정은 없어도 됩니다.
-5. `junho` 폴더에서 `claude` 실행 → «`@SETUP.md` 수행해»
+5. `safety-bar-homepage` 폴더에서 `claude` 실행 → «`@SETUP.md` 수행해»
 
 ## Claude가 할 일
 

@@ -1,14 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { readdir, rm } from 'node:fs/promises';
 
 // 어떤 사이트를 빌드할지 환경변수로 고른다. Cloudflare 프로젝트마다 SITE 값만 다르게 준다.
 const SITE = process.env.SITE ?? 'safetybar';
 const siteDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'sites', SITE);
-const { default: site } = await import(path.join(siteDir, 'site.ts'));
+const { default: site } = await import(/* @vite-ignore */ pathToFileURL(path.join(siteDir, 'site.ts')).href); // Windows 경로(C:\…)는 file:// URL로 바꿔야 import됨
 
 export default defineConfig({
   site: site.url,
