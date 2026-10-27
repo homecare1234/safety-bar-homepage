@@ -4,8 +4,8 @@ heading: "액자 배치 · 여러 개 거는 법"
 description: "거실·복도에 액자 여러 개를 보기 좋게 거는 법. 액자 높이, 간격, 크기가 다른 액자 배치 요령을 정리했습니다. 액자레일로 걸면 바꿔 걸기도 쉽습니다."
 keywords: ["액자 배치", "액자 여러개 걸기", "거실 액자 배치", "액자 거는 높이", "액자 간격"]
 summary: "높이·간격·크기를 맞추는 요령."
-image: "family-photo-picture-rail-05"
-imageAlt: "거실 소파 위 벽에 큰 가족사진과 작은 사진 두 점"
+image: "picture-rail-39"
+imageAlt: "벽에 같은 높이로 나란히 건 액자 세 점"
 gallery: ["wedding-photo-picture-rail-11", "picture-rail-05", "gallery-picture-rail-08", "office-picture-rail-17", "picture-rail-14", "family-photo-picture-rail-01"]
 group: info
 order: 33

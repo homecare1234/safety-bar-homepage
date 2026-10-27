@@ -4,8 +4,8 @@ heading: "액자레일 셀프 설치와 업체 설치, 무엇이 다른가요"
 description: "액자레일 셀프 설치 전에 알아 둘 것. 천장에 구멍을 뚫어 레일을 고정하는 작업, 수평 맞추기, 무게 받치기까지 셀프와 업체 설치를 비교했습니다."
 keywords: ["액자레일 셀프 설치", "액자레일 직접 설치", "액자레일 설치 방법", "액자레일 혼자 달기", "액자레일 설치 업체"]
 summary: "직접 달기 전에 알아 둘 것."
-image: "gallery-picture-rail-21"
-imageAlt: "천장과 벽이 만나는 자리에 액자레일을 고정하는 모습"
+image: "gallery-picture-rail-18"
+imageAlt: "천장 쪽에 액자레일을 고정하는 모습"
 gallery: ["gallery-picture-rail-03", "gallery-picture-rail-19", "picture-rail-34", "gallery-picture-rail-24", "picture-rail-33", "picture-rail-35"]
 group: info
 order: 34

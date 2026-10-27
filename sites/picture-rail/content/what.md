@@ -4,8 +4,8 @@ heading: "액자레일이란? 구성과 장단점"
 description: "액자레일이란 무엇인지, 레일·와이어·고리 구성과 장점·단점을 정리했습니다. 액자 하나에 20kg까지, 액자 거는 벽에는 구멍 없이 겁니다."
 keywords: ["액자레일", "액자레일이란", "액자레일 장단점", "액자레일 단점", "액자레일 구성"]
 summary: "레일·와이어·고리로 액자를 거는 방법."
-image: "picture-rail-19"
-imageAlt: "액자레일에 거는 와이어와 높이 조절 고리"
+image: "picture-rail-20"
+imageAlt: "손에 든 액자레일 와이어와 높이 조절 고리"
 gallery: ["picture-rail-26", "picture-rail-05", "gallery-picture-rail-08", "office-picture-rail-17", "picture-rail-36", "picture-rail-24"]
 group: info
 order: 32
