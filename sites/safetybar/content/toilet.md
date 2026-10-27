@@ -6,7 +6,7 @@ keywords: ["변기 안전바 설치", "변기 손잡이 설치", "양변기 안�
 summary: "앉고 일어서는 동작을 받치는 변기 안전바."
 image: "bathroom-safety-bar-09"
 imageAlt: "변기 양옆에 설치한 접이식 안전바"
-gallery: ["bathroom-safety-bar-09", "bathroom-safety-bar-21", "bathroom-safety-bar-27", "bathroom-safety-bar-22", "bathroom-safety-bar-02", "bathroom-safety-bar-26"]
+gallery: ["bathroom-safety-bar-21", "bathroom-safety-bar-27", "bathroom-safety-bar-22", "bathroom-safety-bar-02", "bathroom-safety-bar-26"]
 group: space
 order: 11
 faq:  # 고객 확인 (2026-09-29)
@@ -43,3 +43,10 @@ faq:  # 고객 확인 (2026-09-29)
 ## 화장실 전체를 함께
 
 변기 옆에 달고 나면 세면대·욕조 쪽도 함께 보시는 분이 많습니다. [화장실 안전바 설치](/restroom)에 자리별로 정리했습니다.
+
+## 실제 시공사례
+
+- [샤워부스 옆 변기 접이식 안전바](/case-shower-booth-toilet-safety-bar)
+- [세면대와 붙은 변기 접이식 안전바](/case-sink-toilet-folding-safety-bar)
+- [변기 옆 ㄱ자 · 세면대 옆 가로형 안전바](/case-pedestal-sink-safety-bar)
+- [시공사례 모두 보기](/cases)

@@ -6,7 +6,7 @@ keywords: ["욕실 안전바 설치", "욕실 안전손잡이", "욕실 낙상 �
 summary: "변기·세면대·욕조·샤워, 손이 가는 자리에 설치합니다."
 image: "bathroom-safety-bar-01"
 imageAlt: "세면대와 변기 옆에 안전바를 설치한 욕실"
-gallery: ["bathroom-safety-bar-01", "bathroom-safety-bar-25", "bathroom-safety-bar-03", "bathroom-safety-bar-31", "bathroom-safety-bar-19", "bathroom-safety-bar-10"]
+gallery: ["bathroom-safety-bar-25", "bathroom-safety-bar-03", "bathroom-safety-bar-31", "bathroom-safety-bar-19", "bathroom-safety-bar-10"]
 group: space
 order: 10
 faq:  # 고객 확인 (2026-09-29)

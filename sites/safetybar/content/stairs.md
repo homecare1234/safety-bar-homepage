@@ -6,7 +6,7 @@ keywords: ["계단 안전바 설치", "계단 손잡이 설치", "계단 난간 
 summary: "계단을 오르내리는 동안 잡을 수 있게 설치합니다."
 image: "stairs-safety-bar-04"
 imageAlt: "주택 계단 양쪽 벽에 설치한 계단 안전바"
-gallery: ["stairs-safety-bar-04", "stairs-safety-bar-03", "stairs-safety-bar-01", "stairs-safety-bar-02"]
+gallery: ["stairs-safety-bar-03", "stairs-safety-bar-01", "stairs-safety-bar-02"]
 group: space
 order: 14
 faq:  # 고객 확인 (2026-09-29)
@@ -47,3 +47,8 @@ faq:  # 고객 확인 (2026-09-29)
 ## 문의할 때
 
 계단 전체가 나오게 아래에서 한 장, 위에서 한 장 찍어 보내주세요. 계단 길이와 꺾이는 곳을 보고 비용을 안내해 드립니다.
+
+## 실제 시공사례
+
+- [빌라 계단 양쪽 안전바 · 현관 손잡이](/case-villa-stairs-handrail)
+- [꺾이는 공용 계단 핸드레일](/case-outdoor-stairs-handrail)

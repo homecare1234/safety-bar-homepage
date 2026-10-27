@@ -6,7 +6,7 @@ keywords: ["욕조 안전바 설치", "샤워 안전바 설치", "욕조 손잡�
 summary: "욕조를 넘을 때와 샤워 중에 잡는 안전바."
 image: "bathtub-safety-bar-01"
 imageAlt: "욕조 벽에 설치한 ㄱ자형·수직 안전바"
-gallery: ["bathtub-safety-bar-01", "bathtub-safety-bar-02", "bathtub-safety-bar-03", "bathtub-safety-bar-04", "bathroom-safety-bar-10"]
+gallery: ["bathtub-safety-bar-02", "bathtub-safety-bar-03", "bathtub-safety-bar-04", "bathroom-safety-bar-10"]
 group: space
 order: 13
 faq:  # 고객 확인 (2026-09-29)
@@ -47,3 +47,9 @@ faq:  # 고객 확인 (2026-09-29)
 - [안전바 재질 비교](/material): 젖은 손으로 잡아도 덜 미끄러운 ABS 소재
 
 욕조와 양옆 벽이 함께 나오게 찍어 보내주시면 어디에 어떤 형태가 좋을지 안내해 드립니다.
+
+## 실제 시공사례
+
+- [욕조 ㄱ자 안전바 · 벽걸이 변기 옆 안전바](/case-bathtub-l-safety-bar)
+- [샤워 의자 쓰는 욕실 세로형 안전바](/case-shower-chair-safety-bar)
+- [시공사례 모두 보기](/cases)

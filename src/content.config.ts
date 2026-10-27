@@ -12,7 +12,7 @@ const pages = defineCollection({
     keywords: z.array(z.string()),
     heading: z.string().optional(), // h1을 title과 다르게 쓰고 싶을 때
     summary: z.string(),          // 카드·목록에 쓰는 한 줄 요약
-    group: z.enum(['service', 'space', 'target', 'info']),
+    group: z.enum(['service', 'space', 'target', 'info', 'case']), // case = 현장 하나짜리 시공사례 (메인 정보 목록·푸터에는 안 나옴)
     order: z.number().default(99),
     image: z.string().optional(),       // public/images/<id>/<이름>.webp 의 <이름>
     gallery: z.array(z.string()).default([]), // 본문 아래 시공 사진

@@ -6,7 +6,7 @@ keywords: ["소변기 안전바 설치", "소변기 손잡이 설치", "소변�
 summary: "서 있는 동안 양손으로 균형을 잡는 손잡이."
 image: "urinal-safety-bar-02"
 imageAlt: "소변기 양옆에 설치한 수직 안전바"
-gallery: ["urinal-safety-bar-02", "urinal-safety-bar-01", "bathroom-safety-bar-29"]
+gallery: ["urinal-safety-bar-01", "bathroom-safety-bar-29"]
 group: space
 order: 16
 faq:  # 고객 확인 (2026-09-29)
@@ -46,3 +46,5 @@ faq:  # 고객 확인 (2026-09-29)
 ## 문의할 때
 
 소변기와 양옆 벽·칸막이가 함께 나오게 찍어 보내주세요. 확인 후 비용과 일정을 안내해 드립니다.
+
+실제 현장은 [공용 화장실 변기 · 소변기 · 벽 안전바 설치 사례](/case-public-restroom-safety-bar)에서 볼 수 있습니다.

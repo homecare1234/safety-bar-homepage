@@ -243,13 +243,13 @@ const site = {
     galleryAltSuffix: "안전바 설치", // 갤러리 사진 alt = «캡션 + 이 말»
     faqHeading: "안전바 설치,\n이런 점을 많이 물어보십니다",
     // 세부 페이지 상단에 붙는 분류 이름 (content/*.md의 group)
-    groupLabels: { service: "서비스 안내", space: "설치 장소별", target: "이용 대상별", info: "알아두면 좋은 정보" },
+    groupLabels: { service: "서비스 안내", space: "설치 장소별", target: "이용 대상별", info: "알아두면 좋은 정보", case: "시공사례" },
   },
 
   nav: [
     { label: "비용 안내", href: "/cost" },
     { label: "시공 과정", href: "/process" },
-    { label: "시공 사례", href: "/#cases" },
+    { label: "시공 사례", href: "/cases" },
     { label: "업체 소개", href: "/#about" },
     { label: "자주 묻는 질문", href: "/#faq" },
   ],

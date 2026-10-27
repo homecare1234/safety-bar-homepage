@@ -6,7 +6,7 @@ keywords: ["안전바 설치 업체", "안전손잡이 설치 업체", "화장�
 summary: "수도권(서울·경기·인천) 안전바 설치 업체 현명한 홈케어."
 image: "bathroom-safety-bar-07"
 imageAlt: "안전바 시공 중 수평을 확인하는 모습"
-gallery: ["bathroom-safety-bar-07", "bathroom-safety-bar-23", "bathroom-safety-bar-05", "bathroom-safety-bar-16", "bathroom-safety-bar-14", "bathroom-safety-bar-28"]
+gallery: ["bathroom-safety-bar-23", "bathroom-safety-bar-05", "bathroom-safety-bar-16", "bathroom-safety-bar-14", "bathroom-safety-bar-28"]
 group: service
 order: 3
 faq:  # 고객 확인 (2026-09-29)
@@ -43,3 +43,5 @@ faq:  # 고객 확인 (2026-09-29)
 ## 상담 방법
 
 전화나 문자로 연락 주세요. 24시간 편하게 연락 주셔도 됩니다. 설치할 곳 사진을 보내주시면 비용과 일정을 안내해 드립니다. 출장비와 견적비는 받지 않습니다.
+
+직접 시공한 현장 17곳은 [안전바 설치 시공사례 모아보기](/cases)에 있습니다.

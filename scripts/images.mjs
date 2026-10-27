@@ -3,14 +3,16 @@
 //  - EXIF·GPS 등 메타데이터 전부 제거 (고객 집 위치 정보 보호)
 //  - 파일명을 키워드 슬러그로 변경: <slug>-01.webp, <slug>-02.webp ...
 //  - 카드용 썸네일(긴 변 800px)도 함께 생성: <slug>-01-thumb.webp
-// 사용법: node scripts/images.mjs [SITE]   (기본 safetybar)
+// 사용법: node scripts/images.mjs [SITE] [원본 폴더]   (기본 safetybar)
 //  - 원본 위치: 자료/<SITE>/ (안전바만 예전 위치인 사이트/)
+//  - 원본 폴더를 따로 주면(예: 자료/safetybar-cases) 그 폴더만 변환하고, 목록은 manifest-<폴더 이름>.json에 따로 쓴다
 import sharp from 'sharp';
 import { readdir, mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const SITE = process.argv[2] ?? 'safetybar';
-const SRC = path.resolve(SITE === 'safetybar' ? '사이트' : path.join('자료', SITE));
+const SRC_ARG = process.argv[3];
+const SRC = path.resolve(SRC_ARG ?? (SITE === 'safetybar' ? '사이트' : path.join('자료', SITE)));
 const OUT = path.resolve('public/images', SITE);
 
 // 원본 폴더 이름 → 파일명 슬러그 (SEO: URL과 파일명에 키워드가 들어간다)
@@ -48,6 +50,26 @@ const folderSlugs = {
     '렌지후드 교체': 'range-hood-replacement', // 새 폴더 (6)
     '가스레인지 후드': 'gas-range-hood', // 새 폴더 (13)
   },
+  // 안전바 시공사례(2026-10-27 받은 zip). 원본 폴더 «새 폴더 (N)»를 사진을 보고 현장 모양으로 이름 붙였다 (현장 하나 = 폴더 하나 = 사례 페이지 하나)
+  'safetybar-cases': {
+    '계단': 'villa-stairs-handrail',
+    '계단1': 'outdoor-stairs-handrail',
+    '새 폴더': 'toilet-shower-safety-bar',
+    '새 폴더 (2)': 'bathtub-hallway-safety-bar',
+    '새 폴더 (3)': 'toilet-entrance-safety-bar',
+    '새 폴더 (4)': 'sink-toilet-folding-safety-bar',
+    '새 폴더 (5)': 'toilet-folding-safety-bar',
+    '새 폴더 (6)': 'old-bathroom-safety-bar',
+    '새 폴더 (7)': 'bathtub-l-safety-bar',
+    '새 폴더 (8)': 'bathtub-door-safety-bar',
+    '새 폴더 (9)': 'shower-booth-toilet-safety-bar',
+    '새 폴더 (10)': 'narrow-bathroom-safety-bar',
+    '새 폴더 (11)': 'pedestal-sink-safety-bar',
+    '새 폴더 (12)': 'shower-chair-safety-bar',
+    '새 폴더 (13)': 'bathroom-entrance-safety-bar',
+    '새 폴더 (14)': 'hallway-bathroom-handrail',
+    '새 폴더 (15)': 'public-restroom-safety-bar',
+  },
   // 원본은 한 폴더(사각싱크볼)에 80장이 섞여 있어, 카톡 보낸 시각·주방 모양으로 현장을 나눠 키워드 이름을 붙였다
   sink: {
     '사각싱크볼 교체': 'square-sink-replacement',
@@ -63,7 +85,7 @@ const folderSlugs = {
     '주방 사각볼 교체': 'kitchen-square-bowl',
   },
 };
-const folderSlug = folderSlugs[SITE] ?? {};
+const folderSlug = folderSlugs[SRC_ARG ? path.basename(SRC) : SITE] ?? {};
 
 await mkdir(OUT, { recursive: true });
 const manifest = [];
@@ -85,5 +107,5 @@ for (const folder of await readdir(SRC)) {
     process.stdout.write(`${folder}/${f} → ${base}.webp\n`);
   }
 }
-await import('node:fs/promises').then((fs) => fs.writeFile(path.join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 2)));
+await import('node:fs/promises').then((fs) => fs.writeFile(path.join(OUT, SRC_ARG ? `manifest-${path.basename(SRC)}.json` : 'manifest.json'), JSON.stringify(manifest, null, 2)));
 console.log(`\n${manifest.length}장 변환 완료 → ${OUT}`);

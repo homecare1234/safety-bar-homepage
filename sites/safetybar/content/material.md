@@ -6,7 +6,7 @@ keywords: ["안전바 재질", "ABS 안전바", "스테인리스 안전바", "�
 summary: "ABS 소재와 스테인리스, 두 재질을 비교합니다."
 image: "bathroom-safety-bar-11"
 imageAlt: "ABS 소재 안전바를 손으로 잡아 보는 모습"
-gallery: ["bathroom-safety-bar-11", "bathroom-safety-bar-05", "bathroom-safety-bar-21", "bathroom-safety-bar-31"]
+gallery: ["bathroom-safety-bar-05", "bathroom-safety-bar-21", "bathroom-safety-bar-31"]
 group: info
 order: 40
 faq:  # 고객 확인 (2026-09-29)

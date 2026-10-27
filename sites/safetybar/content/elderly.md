@@ -6,7 +6,7 @@ keywords: ["노인 안전바 설치", "어르신 안전바 설치", "노인 낙�
 summary: "어르신이 매일 다니는 길을 따라 설치합니다."
 image: "bathroom-safety-bar-21"
 imageAlt: "변기 양옆에 설치한 접이식 안전바"
-gallery: ["bathroom-safety-bar-21", "bathroom-safety-bar-20", "bed-safety-guard-02", "handrail-04"]
+gallery: ["bathroom-safety-bar-20", "bed-safety-guard-02", "handrail-04"]
 group: target
 order: 30
 faq:  # 고객 확인 (2026-09-29)
@@ -48,3 +48,9 @@ faq:  # 고객 확인 (2026-09-29)
 ## 자녀분이 대신 문의하셔도 됩니다
 
 떨어져 사시는 자녀분이 문자로 사진을 보내 상담하실 수 있습니다. [부모님 안전바 설치](/parents)
+
+## 실제 시공사례
+
+- [욕조 · 변기 · 복도 안전바 함께 설치](/case-bathtub-hallway-safety-bar)
+- [변기 옆 · 방문 · 현관 안전바](/case-toilet-entrance-safety-bar)
+- [시공사례 모두 보기](/cases)

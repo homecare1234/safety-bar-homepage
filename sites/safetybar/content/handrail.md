@@ -6,7 +6,7 @@ keywords: ["핸드레일 설치", "핸드레일 시공", "복도 핸드레일", 
 summary: "복도·현관·방을 잡고 걸을 수 있게 길게 이어 답니다."
 image: "handrail-04"
 imageAlt: "방 벽을 따라 설치한 핸드레일"
-gallery: ["handrail-04", "handrail-05", "handrail-03", "handrail-01", "handrail-02"]
+gallery: ["handrail-05", "handrail-03", "handrail-01", "handrail-02"]
 group: space
 order: 15
 faq:  # 고객 확인 (2026-09-29)
@@ -44,3 +44,8 @@ faq:  # 고객 확인 (2026-09-29)
 ## 문의할 때
 
 복도 전체가 나오게 한 장, 방문과 꺾이는 곳이 보이게 한 장 찍어 보내주세요. 길이를 보고 비용을 안내해 드립니다.
+
+## 실제 시공사례
+
+- [복도에서 욕실까지 이어지는 핸드레일](/case-hallway-bathroom-handrail)
+- [꺾이는 공용 계단 핸드레일](/case-outdoor-stairs-handrail)

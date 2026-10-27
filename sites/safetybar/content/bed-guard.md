@@ -6,7 +6,7 @@ keywords: ["침대 안전가드 설치", "침대 안전바 설치", "침대 낙�
 summary: "자다가 떨어지는 것과 일어서다 넘어지는 것을 함께 막습니다."
 image: "bed-safety-guard-02"
 imageAlt: "침대 옆에 설치한 안전가드 손잡이"
-gallery: ["bed-safety-guard-02", "bed-safety-guard-01", "bed-safety-guard-03"]
+gallery: ["bed-safety-guard-01", "bed-safety-guard-03"]
 group: space
 order: 17
 faq:  # 고객 확인 (2026-09-29)

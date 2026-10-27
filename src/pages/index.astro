@@ -16,7 +16,7 @@ const all = (await getCollection("pages")).sort(
 const spaces = all.filter((p) => p.data.group === "space");
 const rows = spaces.filter((p) => p.data.image).slice(0, 4);
 const restSpaces = spaces.filter((p) => !rows.includes(p));
-const guides = all.filter((p) => p.data.group !== "space");
+const guides = all.filter((p) => p.data.group !== "space" && p.data.group !== "case");
 const heroImg = site.hero.image!;
 
 const jsonLd = [

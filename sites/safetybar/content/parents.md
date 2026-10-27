@@ -6,7 +6,7 @@ keywords: ["부모님 안전바 설치", "부모님 화장실 안전바", "부�
 summary: "떨어져 사셔도 자녀분이 문자로 상담하실 수 있습니다."
 image: "bathroom-safety-bar-20"
 imageAlt: "변기 옆 벽에 설치한 접이식 안전바"
-gallery: ["bathroom-safety-bar-20", "bathroom-safety-bar-19", "bathtub-safety-bar-02"]
+gallery: ["bathroom-safety-bar-19", "bathtub-safety-bar-02"]
 group: target
 order: 31
 faq:  # 고객 확인 (2026-09-29)

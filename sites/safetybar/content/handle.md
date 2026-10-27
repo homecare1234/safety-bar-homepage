@@ -6,7 +6,7 @@ keywords: ["안전손잡이 설치", "안전손잡이 시공", "욕실 안전손
 summary: "일자·ㄱ자·ㄷ자·접이식, 형태마다 쓰임이 다릅니다."
 image: "bathroom-safety-bar-25"
 imageAlt: "세면대 옆 일자형과 변기 옆 접이식 안전손잡이"
-gallery: ["bathroom-safety-bar-25", "bathroom-safety-bar-31", "bathroom-safety-bar-21", "bathtub-safety-bar-01"]
+gallery: ["bathroom-safety-bar-31", "bathroom-safety-bar-21", "bathtub-safety-bar-01"]
 group: space
 order: 19
 faq:  # 고객 확인 (2026-09-29)

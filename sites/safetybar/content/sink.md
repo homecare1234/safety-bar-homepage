@@ -6,7 +6,7 @@ keywords: ["세면대 안전바 설치", "세면대 손잡이 설치", "세면�
 summary: "허리를 숙였다 펼 때 잡는 자리입니다."
 image: "sink-safety-bar-02"
 imageAlt: "세면대 아래를 받치는 세면대 안전바"
-gallery: ["sink-safety-bar-02", "sink-safety-bar-03", "sink-safety-bar-01", "bathroom-safety-bar-18"]
+gallery: ["sink-safety-bar-03", "sink-safety-bar-01", "bathroom-safety-bar-18"]
 group: space
 order: 12
 faq:  # 고객 확인 (2026-09-29)

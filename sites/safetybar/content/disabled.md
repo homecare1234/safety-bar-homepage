@@ -6,7 +6,7 @@ keywords: ["장애인 안전바 설치", "장애인 화장실 손잡이 설치",
 summary: "시설과 가정, 사용하시는 분에 맞춰 설치합니다."
 image: "bathroom-safety-bar-26"
 imageAlt: "변기 양옆 대칭으로 설치한 접이식 안전손잡이"
-gallery: ["bathroom-safety-bar-26", "bathroom-safety-bar-09", "urinal-safety-bar-02"]
+gallery: ["bathroom-safety-bar-09", "urinal-safety-bar-02"]
 group: target
 order: 32
 faq:  # 고객 확인 (2026-09-29)

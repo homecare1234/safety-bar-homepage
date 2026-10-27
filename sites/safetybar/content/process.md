@@ -6,7 +6,7 @@ keywords: ["안전바 시공", "안전바 시공 과정", "안전바 설치 순�
 summary: "사진 보내기 → 확인 후 안내 → 방문 시공."
 image: "bathroom-safety-bar-29"
 imageAlt: "레이저 수평기로 안전바 높이를 잡는 모습"
-gallery: ["bathroom-safety-bar-29", "bathroom-safety-bar-06", "bathroom-safety-bar-13", "bathroom-safety-bar-07", "bathroom-safety-bar-24", "bathroom-safety-bar-30"]
+gallery: ["bathroom-safety-bar-06", "bathroom-safety-bar-13", "bathroom-safety-bar-07", "bathroom-safety-bar-24", "bathroom-safety-bar-30"]
 group: service
 order: 2
 faq:  # 고객 확인 (2026-09-29)
