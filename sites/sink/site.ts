@@ -21,7 +21,7 @@ const site = {
   launched: true,
   lang: "ko",
   // 메인 공유 이미지 (hero.image를 scripts/og.mjs가 1200×630으로 자른 것)
-  ogImage: "/images/sink/og/square-sink-replacement-05.jpg",
+  ogImage: "/images/sink/og/sink-bowl-replacement-08.jpg",
 
   // ── 검색 결과에 뜨는 제목. 로고(브랜드)와 다르게 «검색어»로 쓴다 ──
   title: "사각싱크볼 교체 전문 업체 비용",
@@ -100,14 +100,15 @@ const site = {
     heading: "사각싱크볼 교체",
     subheading: "싱크대 개수대 · 설거지통을 넓은 사각볼로, 수전까지 함께",
     lead: "지금 싱크대 사진 한 장 보내주시면 확인 후 비용과 날짜를 알려드립니다.",
-    image: "square-sink-replacement-05" as string | null,
-    imageAlt: "창가 주방 상판에 새로 단 사각싱크볼과 수전",
+    image: "sink-bowl-replacement-08" as string | null,
+    imageAlt: "인덕션 옆 싱크대에 새로 단 사각싱크볼과 수전",
+    // 넓은 화면에서는 사진 위아래가 많이 잘려서, 상판·수납장까지 함께 나온 사진만 쓴다 (2026-10-27)
     slides: [
-      { image: "square-sink-replacement-05", position: "50% 55%" },
-      { image: "kitchen-sink-replacement-09", position: "50% 55%" },
-      { image: "square-sink-installation-03", position: "50% 55%" },
-      { image: "square-basin-replacement-03", position: "50% 55%" },
-      { image: "kitchen-square-bowl-06", position: "50% 55%" },
+      { image: "sink-bowl-replacement-08", position: "50% 55%" },
+      { image: "kitchen-sink-replacement-08", position: "50% 60%" },
+      { image: "kitchen-sink-replacement-03", position: "50% 55%" },
+      { image: "square-sink-work-03", position: "50% 50%" },
+      { image: "sink-basin-replacement-04", position: "50% 50%" },
     ],
   },
 
