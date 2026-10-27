@@ -48,6 +48,20 @@ const folderSlugs = {
     '렌지후드 교체': 'range-hood-replacement', // 새 폴더 (6)
     '가스레인지 후드': 'gas-range-hood', // 새 폴더 (13)
   },
+  // 원본은 한 폴더(사각싱크볼)에 80장이 섞여 있어, 카톡 보낸 시각·주방 모양으로 현장을 나눠 키워드 이름을 붙였다
+  sink: {
+    '사각싱크볼 교체': 'square-sink-replacement',
+    '사각싱크볼 설치': 'square-sink-installation',
+    '사각싱크볼 시공': 'square-sink-work',
+    '싱크대 개수대 교체': 'sink-basin-replacement',
+    '주방 개수대 교체': 'kitchen-sink-replacement',
+    '싱크대 사각볼 교체': 'square-bowl-replacement',
+    '사각싱크대 교체': 'square-kitchen-sink',
+    '사각개수대 교체': 'square-basin-replacement',
+    '설거지통 교체': 'dish-sink-replacement',
+    '싱크대볼 교체': 'sink-bowl-replacement',
+    '주방 사각볼 교체': 'kitchen-square-bowl',
+  },
 };
 const folderSlug = folderSlugs[SITE] ?? {};
 

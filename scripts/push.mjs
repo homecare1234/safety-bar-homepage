@@ -1,12 +1,12 @@
 // 고친 내용을 깃허브에 올리기 (명령어 하나로).
 // 사용법: npm run push                       → «사이트 수정 (날짜)»라는 메모로 올림
 //         npm run push -- "안전바 문구 수정"   → 메모를 직접 적어서 올림
-// 순서: 네 사이트 빌드 확인 → 저장(commit) → 최신 내용 받기(pull) → 올리기(push)
+// 순서: 모든 사이트 빌드 확인 → 저장(commit) → 최신 내용 받기(pull) → 올리기(push)
 // 빌드가 하나라도 실패하면 올리지 않는다 (Cloudflare 배포가 깨지지 않게).
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 
-const SITES = ['safetybar', 'picture-rail', 'fan', 'hood'];
+const SITES = ['safetybar', 'picture-rail', 'fan', 'hood', 'sink'];
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 const run = (cmd, args, env) => spawnSync(cmd, args, { stdio: 'inherit', env: { ...process.env, ...env } }).status === 0;
