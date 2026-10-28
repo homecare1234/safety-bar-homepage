@@ -10,6 +10,7 @@ const canonical = new URL(path, site.url).href;
 // 기본 공유 이미지는 사이트마다 site.ts의 ogImage. 세부 페이지는 자기 대표 사진을 쓴다
 const ogImage = new URL(image ?? site.ogImage, site.url).href;
 const { business, contact, brand } = site;
+const theme = (site as { theme?: string }).theme; // 디자인 묶음 (Base.astro와 같은 값)
 
 const localBusiness = {
   '@context': 'https://schema.org',
@@ -69,19 +70,34 @@ const all = [localBusiness, website, ...jsonLd];
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<!-- 아이콘: public/favicon/ (파비콘 생성기 결과물). 루트의 favicon.ico·apple-touch-icon.png는 기본 경로로 찾는 봇·기기용 사본 -->
-<link rel="icon" href="/favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/favicon/manifest.json" />
-<meta name="msapplication-TileColor" content="#2c94fa" />
-<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png" />
-<meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+<!-- 아이콘: public/favicon/ (파비콘 생성기 결과물). 루트의 favicon.ico·apple-touch-icon.png는 기본 경로로 찾는 봇·기기용 사본
+     theme이 있는 사이트(반듯한 홈케어 등)는 public/themes/<theme>/ 의 마크를 쓴다 (scripts/make-favicon.mjs로 생성, 빌드 때 루트 favicon.ico도 바꿔 끼움) -->
+{theme ? (
+  <>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href={`/themes/${theme}/favicon.svg`} />
+    <link rel="icon" type="image/png" sizes="32x32" href={`/themes/${theme}/favicon-32x32.png`} />
+    <link rel="icon" type="image/png" sizes="96x96" href={`/themes/${theme}/favicon-96x96.png`} />
+    <link rel="icon" type="image/png" sizes="192x192" href={`/themes/${theme}/icon-192.png`} />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href={`/themes/${theme}/manifest.json`} />
+  </>
+) : (
+  <>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/manifest.json" />
+    <meta name="msapplication-TileColor" content="#2c94fa" />
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png" />
+    <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+  </>
+)}
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
-<meta name="theme-color" content="#42a1f5" />
+<meta name="theme-color" content={theme === 'warm' ? '#2f5d50' : '#42a1f5'} />
 <meta name="format-detection" content="telephone=yes" />
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
