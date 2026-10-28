@@ -108,3 +108,41 @@ html[data-theme="warm"] .sum { margin: 28px 0 0; box-shadow: none; border: 1px s
 html[data-theme="warm"] .faq { border-top-color: var(--blue); }
 html[data-theme="warm"] .side__box { background: #fff; }
 html[data-theme="warm"] .dock { background: #fff; }
+
+/* ── 초록 띠 칸 (2026-10-28 준호형 선택 C) ──
+   첫 화면은 밝게 두고, 아래 칸 중 «01 시공 사례»와 «05 비용 안내»만 짙은 초록 바탕으로.
+   밝은 칸과 초록 칸이 번갈아 나와 리듬이 생기게. 금색·그라데이션 없이 초록 두 단계 + 크림 글씨만 쓴다. */
+html[data-theme="warm"] {
+  --band: #2f5d50;        /* 초록 칸 바탕 */
+  --band-2: #3c6b5d;      /* 초록 칸 안의 카드·사진 자리 */
+  --band-line: #6f9488;   /* 초록 칸 안의 선 */
+  --band-ink: #f3ede1;    /* 초록 칸 글씨 (크림) */
+  --band-ink-2: #cfdad3;  /* 초록 칸 보조 글씨 */
+  --band-point: #b9d3c6;  /* 초록 칸 번호·밑줄 (연한 풀빛) */
+}
+html[data-theme="warm"] #cases,
+html[data-theme="warm"] #cost { background: var(--band); color: var(--band-ink); }
+html[data-theme="warm"] #cases h2,
+html[data-theme="warm"] #cases h3,
+html[data-theme="warm"] #cost h2,
+html[data-theme="warm"] #cost h3 { color: var(--band-ink); }
+html[data-theme="warm"] #cases p,
+html[data-theme="warm"] #cost p { color: var(--band-ink-2); }
+html[data-theme="warm"] #cases .kicker,
+html[data-theme="warm"] #cost .kicker { color: var(--band-ink-2); }
+html[data-theme="warm"] #cases .kicker b,
+html[data-theme="warm"] #cost .kicker b { color: var(--band-point); }
+html[data-theme="warm"] #cases .more,
+html[data-theme="warm"] #cost .more { color: var(--band-ink); border-bottom-color: var(--band-point); }
+html[data-theme="warm"] #cases .more:hover,
+html[data-theme="warm"] #cost .more:hover { color: var(--band-point); }
+/* 사례 카드: 사진 아래 글을 초록 카드 안에 */
+html[data-theme="warm"] #cases .case { display: block; background: var(--band-2); border: 1px solid var(--band-line); border-radius: var(--r); overflow: hidden; padding-bottom: 18px; height: 100%; }
+html[data-theme="warm"] #cases .case h3,
+html[data-theme="warm"] #cases .case p { padding-inline: 18px; }
+html[data-theme="warm"] #cases .case:hover { border-color: var(--band-point); }
+html[data-theme="warm"] #cases .case:hover h3 { color: var(--band-point); }
+html[data-theme="warm"] #cases .ph { background: var(--band-2); border-radius: 0; }
+html[data-theme="warm"] #cost .split__note { color: var(--band-ink); border-left-color: var(--band-point); }
+/* 초록 칸 바로 아래 «사진 상담» 띠는 크림으로 (초록과 붙어 보이지 않게) */
+html[data-theme="warm"] .band { background: var(--bg-soft); }
