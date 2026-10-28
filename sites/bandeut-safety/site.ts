@@ -83,7 +83,7 @@ const site = {
   },
 
   verification: {
-    naver: "",
+    naver: "52f4f4d4cf403f3dcd52ea24b8e1998f583c0d8d", // 네이버 서치어드바이저 HTML 태그 (2026-10-28)
     google: "",
     bing: "",
     daum: "",
