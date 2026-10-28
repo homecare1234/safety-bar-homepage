@@ -23,7 +23,7 @@ export default defineConfig({
         'astro:build:done': async ({ dir }) => {
           const images = new URL('images/', dir);
           for (const d of await readdir(images, { withFileTypes: true }).catch(() => [])) {
-            if (d.isDirectory() && d.name !== SITE) await rm(new URL(`${d.name}/`, images), { recursive: true });
+            if (d.isDirectory() && d.name !== (site.images ?? SITE)) await rm(new URL(`${d.name}/`, images), { recursive: true });
           }
         },
       },

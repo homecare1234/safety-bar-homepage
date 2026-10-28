@@ -1,0 +1,110 @@
+/* ───────── «따뜻한 집» 디자인 (반듯한 홈케어) ─────────
+   site.ts에 theme: "warm" 인 사이트에만 Base.astro가 이 파일을 불러온다.
+   현명한 홈케어(기본 디자인)와 달라 보이게: 크림 바탕, 짙은 초록 점, 명조 제목, 거의 각진 모서리,
+   첫 화면은 사진 위에 글을 얹지 않고 글(왼쪽)·사진(오른쪽)을 나눈다.
+   컴포넌트 스타일(.hero[data-astro-cid] 등)을 이기려고 html[data-theme] 를 앞에 붙인다. */
+html[data-theme="warm"] {
+  --blue: #2f5d50;
+  --blue-hover: #264c41;
+  --blue-ink: #2f5d50;
+  --blue-tint: #eef2ec;
+
+  --ink: #2b2a26;
+  --ink-2: #5d5950;
+  --ink-3: #8f897e;
+  --line: #e4dccf;
+  --bg: #fbf8f2;
+  --bg-soft: #f3ede3;
+  --dark: #26302c;
+  --dark-2: #36433e;
+
+  --r-sm: 2px;
+  --r: 3px;
+  --serif: 'Noto Serif KR', 'Nanum Myeongjo', 'AppleMyungjo', serif;
+}
+html[data-theme="warm"] body { background: var(--bg); }
+html[data-theme="warm"] h1,
+html[data-theme="warm"] h2,
+html[data-theme="warm"] h3 { font-family: var(--serif); letter-spacing: -0.02em; }
+
+/* 버튼: 초록 바탕엔 흰 글자 */
+html[data-theme="warm"] .btn--blue,
+html[data-theme="warm"] .dock__btn--tel { color: #fff; }
+html[data-theme="warm"] .btn { border-radius: var(--r-sm); }
+
+/* 머리글: 세로 막대 대신 명조 로고 + 아래 얇은 선 */
+html[data-theme="warm"] .hdr { background: rgba(251, 248, 242, .97); }
+html[data-theme="warm"] .logo { font-family: var(--serif); font-weight: 700; font-size: 20px; }
+html[data-theme="warm"] .logo__bar { width: 18px; height: 2px; border-radius: 0; align-self: flex-end; margin-bottom: 6px; }
+
+/* ── 첫 화면: 글 왼쪽, 사진 오른쪽 ── */
+html[data-theme="warm"] .hero {
+  background: var(--bg); color: var(--ink);
+  min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: stretch; border-bottom: 1px solid var(--line);
+}
+html[data-theme="warm"] .hero__shade { display: none; }
+html[data-theme="warm"] .hero__slides {
+  position: relative; inset: auto; grid-column: 2; grid-row: 1;
+  margin: 40px max(var(--pad), calc((100vw - var(--max)) / 2)) 40px 0; min-height: 480px;
+  border-radius: var(--r); overflow: hidden;
+}
+html[data-theme="warm"] .hero__in {
+  grid-column: 1; grid-row: 1; width: auto; margin: 0;
+  padding: 72px 48px 72px max(var(--pad), calc((100vw - var(--max)) / 2));
+  display: flex; flex-direction: column; justify-content: center;
+}
+html[data-theme="warm"] .hero__eyebrow {
+  color: var(--blue); font-weight: 600; align-self: flex-start;
+  padding-bottom: 6px; border-bottom: 1px solid var(--blue);
+}
+html[data-theme="warm"] .hero__h1 { font-family: var(--serif); font-size: clamp(36px, 4.6vw, 56px); line-height: 1.22; }
+html[data-theme="warm"] .hero__sub { color: var(--ink); font-weight: 500; }
+html[data-theme="warm"] .hero__lead { color: var(--ink-2); }
+
+/* 정보 띠: 사진에 걸치지 않고 첫 화면 아래 얇은 선 칸 */
+html[data-theme="warm"] .strip {
+  margin: 0; background: transparent; box-shadow: none; border-radius: 0;
+  border-bottom: 1px solid var(--line);
+}
+html[data-theme="warm"] .strip div { padding: 22px 24px; }
+html[data-theme="warm"] .strip dd { font-family: var(--serif); }
+
+@media (max-width: 860px) {
+  html[data-theme="warm"] .hero { grid-template-columns: 1fr; }
+  html[data-theme="warm"] .hero__slides { grid-column: 1; grid-row: 1; margin: 16px var(--pad) 0; min-height: 0; aspect-ratio: 4 / 3; }
+  html[data-theme="warm"] .hero__in { grid-row: 2; padding: 28px var(--pad) 40px; }
+  html[data-theme="warm"] .strip { margin: 0; }
+}
+
+/* ── 세부 페이지 머리: 사진 위 글 대신 글·사진 나눔 ── */
+html[data-theme="warm"] .dh {
+  background: var(--bg); color: var(--ink); min-height: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch;
+  border-bottom: 1px solid var(--line);
+}
+html[data-theme="warm"] .dh__shade { display: none; }
+html[data-theme="warm"] .dh__bg {
+  position: relative; inset: auto; grid-column: 2; grid-row: 1; height: 100%; min-height: 360px;
+  margin: 32px 0; width: calc(100% - max(var(--pad), (100vw - var(--max)) / 2)); border-radius: var(--r);
+}
+html[data-theme="warm"] .dh__in {
+  grid-column: 1; grid-row: 1; width: auto; margin: 0;
+  padding: 56px 40px 56px max(var(--pad), calc((100vw - var(--max)) / 2));
+  display: flex; flex-direction: column; justify-content: center;
+}
+html[data-theme="warm"] .crumb { color: var(--ink-3); }
+html[data-theme="warm"] .crumb a:hover { color: var(--ink); }
+html[data-theme="warm"] .dh__lead { color: var(--ink-2); }
+html[data-theme="warm"] .sum { margin: 28px 0 0; box-shadow: none; border: 1px solid var(--line); background: #fff; }
+@media (max-width: 720px) {
+  html[data-theme="warm"] .dh { grid-template-columns: 1fr; }
+  html[data-theme="warm"] .dh__bg { grid-column: 1; grid-row: 1; min-height: 0; aspect-ratio: 4 / 3; margin: 12px var(--pad) 0; width: auto; }
+  html[data-theme="warm"] .dh__in { grid-row: 2; padding: 24px var(--pad) 32px; }
+  html[data-theme="warm"] .sum { margin-top: 20px; }
+}
+
+/* 카드·표·자주 묻는 질문: 흰 칸 대신 크림 위 얇은 선 */
+html[data-theme="warm"] .faq { border-top-color: var(--blue); }
+html[data-theme="warm"] .side__box { background: #fff; }
+html[data-theme="warm"] .dock { background: #fff; }

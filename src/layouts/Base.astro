@@ -9,10 +9,16 @@ import Lightbox from '../components/Lightbox.astro';
 import site from '@site/site';
 interface Props { title: string; description: string; keywords?: string[]; path: string; image?: string | null; type?: 'website' | 'article'; jsonLd?: object[]; preload?: string }
 const { preload, ...props } = Astro.props;
+// 디자인 묶음. site.ts에 theme이 없으면 기본(현명한 홈케어) 디자인. 있으면 public/themes/<theme>.css를 덧씌운다
+const theme = (site as { theme?: string }).theme;
 ---
 <!doctype html>
-<html lang={site.lang}>
-  <head><Seo {...props} />{preload && <link rel="preload" as="image" href={preload} fetchpriority="high" />}</head>
+<html lang={site.lang} data-theme={theme}>
+  <head>
+    <Seo {...props} />{preload && <link rel="preload" as="image" href={preload} fetchpriority="high" />}
+    {theme === 'warm' && <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />}
+    {theme && <link rel="stylesheet" href={`/themes/${theme}.css`} />}
+  </head>
   <body>
     <a class="sr-only" href="#main">본문 바로가기</a>
     {!site.launched && <p class="draft">검토용 시안입니다</p>}

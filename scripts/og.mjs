@@ -6,7 +6,9 @@ import { readdir, readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const SITE = process.argv[2] ?? 'safetybar';
-const IMG = path.resolve('public/images', SITE);
+// site.ts에 images: "<다른 사이트 id>"가 있으면 그 사이트 사진 폴더를 같이 쓴다 (src/lib/img.ts와 같은 규칙)
+const shared = (await readFile(path.resolve('sites', SITE, 'site.ts'), 'utf8')).match(/^\s*images:\s*"([^"]+)"/m);
+const IMG = path.resolve('public/images', shared ? shared[1] : SITE);
 const OUT = path.join(IMG, 'og');
 await mkdir(OUT, { recursive: true });
 
