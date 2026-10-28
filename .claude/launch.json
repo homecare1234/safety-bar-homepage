@@ -5,6 +5,7 @@
     { "name": "picture-rail", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "picture-rail", "4322"], "port": 4322 },
     { "name": "fan", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "fan", "4323"], "port": 4323 },
     { "name": "hood", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "hood", "4324"], "port": 4324 },
-    { "name": "sink", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "sink", "4325"], "port": 4325 }
+    { "name": "sink", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "sink", "4325"], "port": 4325 },
+    { "name": "sinkdoor", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "sinkdoor", "4326"], "port": 4326 }
   ]
 }

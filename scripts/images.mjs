@@ -84,6 +84,27 @@ const folderSlugs = {
     '싱크대볼 교체': 'sink-bowl-replacement',
     '주방 사각볼 교체': 'kitchen-square-bowl',
   },
+  // 싱크대 문짝 교체(2026-10-28 받은 zip). 원본 «새 폴더 (N)»을 사진을 보고 현장 모양으로 이름 붙였다 (현장 하나 = 폴더 하나)
+  sinkdoor: {
+    '원룸 싱크대 문짝 교체': 'oneroom-sink-door', // 새 폴더
+    '싱크대 문짝 들뜸 교체': 'peeling-sink-door', // 새 폴더 (10)
+    '하이그로시 싱크대 문짝 교체': 'high-gloss-sink-door', // 새 폴더 (11)
+    '아파트 싱크대 문짝 교체': 'apartment-sink-door', // 새 폴더 (12)
+    '주방 상하부장 문짝 교체': 'kitchen-cabinet-door', // 새 폴더 (13)
+    '입주 전 싱크대 문짝 교체': 'move-in-sink-door', // 새 폴더 (14)
+    '블랙 싱크대 문짝 교체': 'black-sink-door', // 새 폴더 (15)
+    '오피스텔 싱크대 문짝 교체': 'officetel-sink-door', // 새 폴더 (16)
+    '주방 문짝 교체': 'kitchen-door-replacement', // 새 폴더 (17)
+    '싱크대 상부장 문짝 교체': 'upper-cabinet-door', // 새 폴더 (18)
+    '주방 리폼': 'kitchen-reform', // 새 폴더 (2)
+    '싱크대 도어 교체': 'sink-door-replacement', // 새 폴더 (3)
+    '싱크대 경첩 교체': 'sink-hinge-replacement', // 새 폴더 (4)
+    '싱크대 부분 리폼': 'sink-partial-reform', // 새 폴더 (5)
+    '싱크대 리폼': 'sink-reform', // 새 폴더 (6)
+    '세면대 하부장 문짝 교체': 'vanity-cabinet-door', // 새 폴더 (7)
+    '오래된 싱크대 문짝 교체': 'old-sink-door', // 새 폴더 (8)
+    '싱크대 하부장 문짝 교체': 'lower-cabinet-door', // 새 폴더 (9)
+  },
 };
 const folderSlug = folderSlugs[SRC_ARG ? path.basename(SRC) : SITE] ?? {};
 

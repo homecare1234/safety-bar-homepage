@@ -6,7 +6,7 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 
-const SITES = ['safetybar', 'picture-rail', 'fan', 'hood', 'sink'];
+const SITES = ['safetybar', 'picture-rail', 'fan', 'hood', 'sink', 'sinkdoor'];
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 const run = (cmd, args, env) => spawnSync(cmd, args, { stdio: 'inherit', env: { ...process.env, ...env } }).status === 0;
