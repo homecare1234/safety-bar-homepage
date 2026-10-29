@@ -22,9 +22,9 @@ const site = {
 
   // ── 검색 결과에 뜨는 제목 ──
   title: "액자레일 설치 비용 시공 업체", // 준호형 결정(2026-10-29). 현명한 홈케어는 «액자레일 설치 전문 업체 비용»
-  shortTitle: "액자레일 시공",
+  shortTitle: "액자레일 설치",
   description:
-    "거실 · 복도 · 사무실 · 전시장 액자레일 시공. 천장 쪽에 레일을 달고 와이어로 걸어서 액자 거는 벽엔 못 자국이 남지 않아요. 출장비 · 견적비 무료",
+    "거실 · 복도 · 사무실 · 전시장 액자레일 설치. 천장 쪽에 레일을 달고 와이어로 걸어서 액자 거는 벽엔 못 자국이 남지 않아요. 출장비 · 견적비 무료",
   keywords: [ // 현명한 홈케어와 같은 키워드 (준호형 결정 2026-10-29: 사람들이 많이 찾는 말)
     "액자레일 설치",
     "액자레일 설치 비용",
@@ -72,7 +72,7 @@ const site = {
     phoneDisplay,
     telHref: `tel:${phoneDigits}`,
     smsBody:
-      "액자레일 시공 상담 부탁드립니다.\n\n" +
+      "액자레일 설치 상담 부탁드립니다.\n\n" +
       "· 걸 곳(예: 거실 소파 위, 복도, 회의실):\n" +
       "· 걸 액자 수와 대략 크기:\n" +
       "· 지역(시·구):\n" +
@@ -109,8 +109,8 @@ const site = {
 
   // ── 메인 상단 ──
   hero: {
-    eyebrow: "서울 · 경기 · 인천 액자레일 시공",
-    heading: "못 자국 없이\n액자레일 시공",
+    eyebrow: "서울 · 경기 · 인천 액자레일 설치",
+    heading: "못 자국 없이\n액자레일 설치",
     subheading: "거실 · 복도 · 사무실 · 전시장, 천장 쪽 레일에 와이어로",
     lead: "걸 벽을 천장까지 나오게 찍어 보내주시면, 보고 비용과 날짜를 말씀드립니다.",
     image: "sofa-canvas-art-rail-11" as string | null,
@@ -215,7 +215,7 @@ const site = {
   ],
 
   pricing: {
-    heading: "액자레일 시공 비용",
+    heading: "액자레일 설치 비용",
     lead: "레일 길이와 걸 액자 수에 따라 달라요. 사진을 보내주시면 보고 바로 말씀드려요.",
     factors: [] as { title: string; body: string }[],
     note: "출장비 · 견적비 받지 않아요",
@@ -242,8 +242,9 @@ const site = {
   ],
 
   text: {
-    serviceType: "액자레일 시공",
-    catalogName: "액자레일 시공",
+    work: "설치", // 공통 칸 이름(시공 사례·시공 지역 등)을 «설치»로 (준호형 결정 2026-10-29)
+    serviceType: "액자레일 설치",
+    catalogName: "액자레일 설치",
     servicesHeading: "어느 벽에\n액자를 거시나요?",
     galleryHeading: "집마다 거는 그림이 달라요",
     galleryAltSuffix: "액자레일",

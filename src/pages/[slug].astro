@@ -8,6 +8,8 @@ import CtaSection from '../components/CtaSection.astro';
 import Icon from '../components/Icon.astro';
 import site from '@site/site';
 import { full, og } from '../lib/img';
+// 칸 이름에 쓰는 말. site.ts text.work가 있으면 그 말(반듯한 홈케어: «설치»), 없으면 «시공» (현명한 홈케어 그대로)
+const W = (site.text as { work?: string }).work ?? '시공';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -38,7 +40,7 @@ const jsonLd = [
 ---
 <Base title={d.title} description={d.description} keywords={d.keywords} path={`/${page.id}`} image={og(hero)} type="article" jsonLd={jsonLd} preload={full(hero)}>
   <section class="dh">
-    <img class="dh__bg" src={full(hero)} alt={d.imageAlt ?? `${heading} 시공 사진`} width="1600" height="1200" fetchpriority="high" />
+    <img class="dh__bg" src={full(hero)} alt={d.imageAlt ?? `${heading} ${W} 사진`} width="1600" height="1200" fetchpriority="high" />
     <div class="dh__shade" aria-hidden="true"></div>
     <div class="wrap dh__in">
       <nav class="crumb" aria-label="현재 위치"><a href="/">{site.shortTitle}</a><span>/</span><span>{groupLabel[d.group]}</span></nav>
@@ -48,17 +50,17 @@ const jsonLd = [
   </section>
   <div class="wrap">
     <dl class="sum">
-      <div><dt>시공 지역</dt><dd>{site.business.areaServedLabel}</dd></div>
+      <div><dt>{W} 지역</dt><dd>{site.business.areaServedLabel}</dd></div>
       <div><dt>상담</dt><dd>전화 · 문자 사진 상담</dd></div>
       <div><dt>비용</dt><dd>사진 확인 후 안내</dd></div>
     </dl>
   </div>
 
   {d.gallery.length > 0 && (
-    <section class="shots" id="photos" aria-label={`${heading} 시공 사진`}>
+    <section class="shots" id="photos" aria-label={`${heading} ${W} 사진`}>
       <div class="wrap">
-        <h2 class="shots__h">{d.group === 'space' || d.group === 'target' ? `${heading} 시공 사진` : '현장 시공 사진'}</h2>
-        <ul class="shots__grid">{d.gallery.map((g, i) => <li><Photo name={g} alt={`${heading} 시공 사진 ${i + 1}`} sizes="(max-width: 720px) 50vw, 380px" eager={i < 3} /></li>)}</ul>
+        <h2 class="shots__h">{d.group === 'space' || d.group === 'target' ? `${heading} ${W} 사진` : `현장 ${W} 사진`}</h2>
+        <ul class="shots__grid">{d.gallery.map((g, i) => <li><Photo name={g} alt={`${heading} ${W} 사진 ${i + 1}`} sizes="(max-width: 720px) 50vw, 380px" eager={i < 3} /></li>)}</ul>
       </div>
     </section>
   )}

@@ -9,6 +9,8 @@ import Kicker from "../components/Kicker.astro";
 import CtaSection from "../components/CtaSection.astro";
 import site from "@site/site";
 import { full, thumb } from "../lib/img";
+// 칸 이름에 쓰는 말. site.ts text.work가 있으면 그 말(반듯한 홈케어: «설치»), 없으면 «시공» (현명한 홈케어 그대로)
+const W = (site.text as { work?: string }).work ?? '시공';
 
 const all = (await getCollection("pages")).sort(
     (a, b) => a.data.order - b.data.order,
@@ -105,7 +107,7 @@ const jsonLd = [
         <div class="wrap">
             <div class="head head--row">
                 <div>
-                    <Kicker no="01" label="시공 사례" />
+                    <Kicker no="01" label={`${W} 사례`} />
                     <h2>설치한 현장을 그대로 보여드립니다</h2>
                 </div>
                 <a class="more" href="#gallery">
@@ -118,7 +120,7 @@ const jsonLd = [
                         <a href={c.href} class="case">
                             <Photo
                                 name={c.image}
-                                alt={`${c.title} 시공 사진`}
+                                alt={`${c.title} ${W} 사진`}
                             />
                             <h3><Fragment set:html={nl(c.title)} /></h3>
                             {filled(c.desc) && <p><Fragment set:html={nl(c.desc)} /></p>}
@@ -195,7 +197,7 @@ const jsonLd = [
     <section class="sec sec--soft" id="gallery">
         <div class="wrap">
             <div class="head">
-                <Kicker no="03" label="유형별 시공 사진" />
+                <Kicker no="03" label={`유형별 ${W} 사진`} />
                 <h2><Fragment set:html={nl(site.text.galleryHeading)} /></h2>
             </div>
             <ul class="gal">
@@ -225,11 +227,11 @@ const jsonLd = [
         <div class="wrap">
             <div class="head head--row">
                 <div>
-                    <Kicker no="04" label="시공 순서" />
-                    <h2>문자 한 통에서 시공 완료까지</h2>
+                    <Kicker no="04" label={`${W} 순서`} />
+                    <h2>문자 한 통에서 {W} 완료까지</h2>
                 </div>
                 <a class="more" href="/process">
-                    시공 과정 자세히 <Icon name="arrow" />
+                    {W} 과정 자세히 <Icon name="arrow" />
                 </a>
             </div>
             <ol class="steps" style={`--n:${site.process.length}`}>
@@ -320,12 +322,12 @@ const jsonLd = [
                         </tr>
                     )}
                     <tr>
-                        <th>시공 지역</th>
+                        <th>{W} 지역</th>
                         <td>{site.business.areaServedLabel}</td>
                     </tr>
                     {filled(site.business.mainWork) && (
                         <tr>
-                            <th>주요 시공</th>
+                            <th>주요 {W}</th>
                             <td>{site.business.mainWork}</td>
                         </tr>
                     )}
