@@ -68,6 +68,7 @@ Claude가 결과를 확인하는 법 (공개 저장소라 로그인 없이 된�
 - `success`: 반영됨. 실제 주소를 열어 확인한다.
 - 깃허브의 «0초»는 믿지 말 것(실제 시간이 아님). 실패하면 크롬으로 Cloudflare 빌드 화면 → 맨 오른쪽 «배포 중» 단계를 눌러 로그 끝을 본다.
   `assets-upload-session failed` / `code: 10013`이면 Cloudflare 일시 오류 → **빌드 다시 시도**. (npm run deploy가 이미 3번 재시도한다)
+  `Failed: error occurred while fetching repository`(저장소 받기 실패, 2026-10-28 겪음)도 Cloudflare 쪽 일시 오류 → **빌드 다시 시도**. 무료 요금제는 한 번에 한 사이트씩 빌드해서, 사이트가 많으면 뒤 순서는 10분 넘게 «초기화 중»으로 기다린다.
   준호형에게 깃허브 화면의 실패 항목 → **Re-run**(다시 실행)을 누르게 하거나, 다음에 올릴 때 저절로 다시 돈다.
 - 몇십 초 돌다가 `failure`면 Cloudflare 빌드 기록 화면 캡처를 받아 원인을 고친다.
 - 위 주소가 `API rate limit exceeded`를 돌려주면(로그인 없이 한 시간에 60번까지, 2026-10-27 겪음) 깃허브로 확인하지 말고

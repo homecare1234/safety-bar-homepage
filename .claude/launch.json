@@ -7,6 +7,7 @@
     { "name": "hood", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "hood", "4324"], "port": 4324 },
     { "name": "sink", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "sink", "4325"], "port": 4325 },
     { "name": "sinkdoor", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "sinkdoor", "4326"], "port": 4326 },
-    { "name": "bandeut-safety", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "bandeut-safety", "4327"], "port": 4327 }
+    { "name": "bandeut-safety", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "bandeut-safety", "4327"], "port": 4327 },
+    { "name": "bandeut-picture-rail", "runtimeExecutable": "node", "runtimeArgs": ["scripts/dev.mjs", "bandeut-picture-rail", "4328"], "port": 4328 }
   ]
 }

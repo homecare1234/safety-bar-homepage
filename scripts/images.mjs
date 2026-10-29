@@ -105,6 +105,31 @@ const folderSlugs = {
     '오래된 싱크대 문짝 교체': 'old-sink-door', // 새 폴더 (8)
     '싱크대 하부장 문짝 교체': 'lower-cabinet-door', // 새 폴더 (9)
   },
+  // 반듯한 홈케어 액자레일(2026-10-29 받은 zip «액자1~21»). 현명한 홈케어 액자레일에 이미 쓴 사진(같거나 거의 같은 것 101장)은
+  // 자료/bandeut-picture-rail-겹침/ 으로 빼 두고 나머지만 변환한다. 파일 이름도 «-art-rail»로 현명한 홈케어(«-picture-rail»)와 다르게
+  'bandeut-picture-rail': {
+    '전시장 액자레일': 'exhibition-hall-art-rail', // 액자1
+    '거실 아크릴 액자': 'acrylic-living-art-rail', // 액자2
+    '현관 복도 캔버스': 'entrance-hallway-art-rail', // 액자3
+    '사무실 복도 그림': 'office-hallway-art-rail', // 액자4
+    '거실 가족사진': 'family-portrait-art-rail', // 액자5
+    '간접조명 거실': 'cove-light-art-rail', // 액자6
+    '사무실 개인실 그림': 'private-office-art-rail', // 액자7
+    '금테 풍경화': 'gold-frame-art-rail', // 액자8
+    '소파 위 캔버스': 'sofa-canvas-art-rail', // 액자9
+    '여섯 폭 동양화': 'oriental-painting-art-rail', // 액자10
+    '건물 복도 대형 유화': 'corridor-oil-painting-art-rail', // 액자11
+    '유리 회의실': 'glass-meeting-room-art-rail', // 액자12
+    '과일 그림': 'fruit-painting-art-rail', // 액자13
+    '침실 사진 액자': 'bedroom-photo-art-rail', // 액자14
+    '회의실 레일만': 'meeting-room-art-rail', // 액자15
+    '아파트 거실 여러 그림': 'apartment-living-art-rail', // 액자16
+    '방 몰딩 포스터': 'poster-room-art-rail', // 액자17
+    '큰 그림 두 점': 'large-artwork-art-rail', // 액자18
+    '가로 긴 캔버스': 'panorama-canvas-art-rail', // 액자19
+    '꽃 그림': 'flower-painting-art-rail', // 액자20
+    '입주 전 빈 방': 'move-in-art-rail', // 액자21
+  },
 };
 const folderSlug = folderSlugs[SRC_ARG ? path.basename(SRC) : SITE] ?? {};
 
